@@ -1,0 +1,95 @@
+.input {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  font-size: 16px;
+  color: $main;
+  z-index: 1;
+  margin-bottom: 15px;
+  transition: .2s;
+  &.error {
+    margin-bottom: 35px;
+  }
+  &.error, &.success {
+    .input__icon.password {
+      // right: 30px;
+    }
+  }
+  input {
+    width: 100%;
+    padding: 10px 20px;
+    margin: 0;
+    border: 1.5px solid $accent;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    color: inherit;
+    background: none;
+    transition: .2s;
+    z-index: 2;
+    &::placeholder {
+      color: $grey;
+    }
+    &:focus {
+      border-color: $accent;
+      box-shadow: 0 0 0 3px rgba($accent, .2);
+    }
+  }
+  &__error {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 3px;
+    color: $error;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: -1;
+  }
+  &__icon {
+    position: absolute;
+    display: block;
+    height: 20px;
+    top: 8px;
+    right: 5px;
+    transition: .1s;
+    &.password {
+      top: 13px;
+      height: 16px;
+      cursor: pointer;
+      right: 8px;
+      color: $grey;
+    }
+    &.error {
+      color: $error;
+    }
+    &.success {
+      color: $success;
+    }
+    &.enter { transform: scale(.7); opacity: 0; }
+    &.enter-active { transform: scale(1); opacity: 1; }
+    &.exit { transform: scale(1); opacity: 1; }
+    &.exit-active { transform: scale(.7); opacity: 0; }
+  }
+  &.required:before {
+    content: '*';
+    display: inline-block;
+    position: absolute;
+    top: 3px;
+    left: -15px;
+    color: $error;
+    font-size: 33px;
+    line-height: 1em;
+  }
+}
+
+.button {
+  position: relative;
+  min-width: 160px;
+  padding: 8px 20px;
+  background: $accent;
+  font-size: 16px;
+  font-weight: 400;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  z-index: 1;
+}
