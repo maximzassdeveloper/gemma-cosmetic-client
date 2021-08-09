@@ -1,54 +1,71 @@
+import React from 'react'
+import { observer } from 'mobx-react-lite'
 import { NextPage } from 'next'
 import Link from 'next/link'
-import { Form, FormData, FormDto } from '../components/generetic'
-import { Container, Main } from '../components/hoc'
-import { useStores } from '../store'
-import { LoginDto } from '../utils/dto'
+import { useForm } from 'react-hook-form'
 
-const formData: FormData = {
-  email: { 
-    value: '', 
-    placeholder: 'Email', 
-    error: '', 
-    touched: false, 
-    rules: { required: true, email: true } 
-  },
-  password: {
-    value: '',
-    type: 'password',
-    placeholder: 'Пароль',
-    error: '',
-    touched: false,
-    rules: { required: true }
-  }
+import { Main, Container } from '../components/hoc'
+import { Input, Button } from '../components/generetic'
+import { useStores } from '../store'
+import { emailRegExp } from '../utils/validation'
+
+
+interface LoginInputs {
+  email: string
+  password: string
 }
 
-const Login: NextPage = () => {
+const Login: NextPage = observer(() => {
 
-  const { userStore, cartStore } = useStores()
+  const { userStore } = useStores()
+  const {   
+    register, 
+    handleSubmit, 
+    formState: { errors, touchedFields } 
+  } = useForm<LoginInputs>()
 
-  const submitHandler = (data: FormDto) => {
-    userStore.login(new LoginDto(data))
-    cartStore.getCart()
-  }
-
+  const onSubmit = handleSubmit(data => {
+    userStore.login(data)
+  })
+  
   return (
     <Main>
       <Container>
         <div className="lr-form">
+
           <div className="lr-form__header">
-            <h1>Вход</h1>
+            <h1>Регистрация</h1>
           </div>
-          <Form 
-            data={formData}
-            buttonValue='Вход'
-            onSubmit={d => submitHandler(d)}
-          />
+
+          <form onSubmit={onSubmit}>
+            <Input 
+              name='email'
+              register={register}
+              error={errors.email}
+              touched={touchedFields.email}
+              rules={{ required: true, pattern: {
+                value: emailRegExp,
+                message: 'Некорректная почта'
+              } }}
+              placeholder='Почта'
+            />
+            <Input 
+              name='password'
+              type='password'
+              register={register}
+              error={errors.password}
+              touched={touchedFields.password}
+              rules={{ required: true }}
+              placeholder='Пароль'
+            />
+            <Button type='submit'>Отправить</Button>
+          </form>
+
           <p className="lr-form__link">Нет аккаунта?<Link href='/register'>Зарегистрируйтесь</Link></p>
         </div>
       </Container>
     </Main>
   )
-}
+})
 
 export default Login

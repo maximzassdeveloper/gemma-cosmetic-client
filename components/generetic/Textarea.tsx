@@ -2,8 +2,6 @@ import React, { FC, useState } from 'react'
 import { FieldError, UseFormRegister } from 'react-hook-form'
 import classnames from 'classnames'
 import { useTransition, animated } from '@react-spring/web'
-import { CSSTransition } from 'react-transition-group'
-import { Eye, EyeOff } from 'react-feather'
 import { renderError } from '../../utils/validation'
 
 export interface InputValidateRules {
@@ -15,66 +13,45 @@ export interface InputValidateRules {
   pattern?: RegExp | { value: RegExp, message: string }
 }
 
-interface InputProps {
+interface TextareaProps {
   register: UseFormRegister<any>
   error?: FieldError | undefined
   touched?: boolean
   rules?: InputValidateRules
 
   name: string
-  type?: string
   className?: string
   placeholder?: string
   autoComplete?: 'off' | 'on'
   style?: React.CSSProperties
-  onChange?: React.ChangeEventHandler<HTMLInputElement>
 }
 
-export const Input: FC<InputProps> = ({ 
-  register, error, touched, rules, name, type, className, placeholder, autoComplete, style, onChange
+export const Textarea: FC<TextareaProps> = ({ 
+  register, error, touched, rules, name, className, placeholder, autoComplete, style
 }) => {
-
-  const { onChange: onChangeR, ...rest } = register(name, {...rules})
-  const [password, setPassword] = useState<boolean | null>(type === 'password' || null)
-
-  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (onChange) onChange(e)
-    onChangeR(e)
-  }
-
   const classes = classnames(
-    'input', 
+    'input textarea', 
     className, 
-    { 'password': type === 'password' },
     { 'error': touched && error },
     { 'success': touched && !error },
     { 'required': rules?.required }
   )
 
   const errorTransition = useTransition(error, {
-    from: { transform: 'translateY(-18px)', opacity: 0 },
-    enter: { transform: 'translateY(0px)', opacity: 1 },
-    leave: { transform: 'translateY(-18px)', opacity: 0 },
+    from: { transform: 'translateX(-10px)', opacity: 0 },
+    enter: { transform: 'translateX(0px)', opacity: 1 },
+    leave: { transform: 'translateX(-0px)', opacity: 0 },
     config: { duration: 150 },
   })
   
   return (
     <div className={classes}>
-      <input 
-        {...rest}
-        onChange={changeHandler}
-        type={password === null ? type || 'text' : password ? type : 'text'}
+      <textarea 
+        {...register(name, {...rules})}
         placeholder={placeholder}
         autoComplete={autoComplete || 'off'}
         style={style}
       />
-
-      <CSSTransition in={password !== null && password} timeout={100} mountOnEnter unmountOnExit>
-        <EyeOff onClick={() => setPassword(false)} className="input__icon password" />
-      </CSSTransition>
-      <CSSTransition in={password !== null && !password} timeout={100} mountOnEnter unmountOnExit>
-        <Eye onClick={() => setPassword(true)} className="input__icon password" />
-      </CSSTransition>
 
       {errorTransition((styles, item) => 
         touched && item && (

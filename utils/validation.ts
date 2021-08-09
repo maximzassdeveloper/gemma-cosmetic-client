@@ -1,3 +1,6 @@
+import { FieldError } from 'react-hook-form'
+import { InputValidateRules } from '../components/generetic/Input'
+
 export interface IValidateOptions {
   required?: boolean
   email?: boolean
@@ -6,8 +9,10 @@ export interface IValidateOptions {
   password?: string
 }
 
+export const emailRegExp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
 export function validateEmail(email: string): boolean {
-  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const re = emailRegExp
   return re.test(String(email).toLowerCase())
 }
 
@@ -36,4 +41,15 @@ export const validation = (value: string, options?: IValidateOptions): string =>
   }
 
   return error
+}
+
+export const renderError = (error: FieldError, rules?: InputValidateRules): string => {
+  if (!rules) return ''
+  if (error.message) return error.message
+
+  if (error.type === 'required') return 'Обязательно для заполнения'
+  if (error.type === 'minLength') return `Минимальная длина ${rules.minLength}`
+  if (error.type === 'maxLength') return `Максимальная длина ${rules.maxLength}`
+
+  return 'Неправильно введены данные'
 }

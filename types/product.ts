@@ -4,6 +4,15 @@ export interface ICategory {
   slug: string
 }
 
+export interface IComment {
+  id: number
+  name: string
+  message: string
+  rating: number
+  userId: number
+  productId: number
+}
+
 export interface IAttribute {
   id: number
   name: string
@@ -25,6 +34,7 @@ export interface IProduct {
   images: string[]
   categories?: ICategory[]
   attributes?: IAttribute[]
+  comments?: IComment[]
 }
 
 export interface ICartProduct {

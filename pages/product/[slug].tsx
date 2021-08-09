@@ -1,33 +1,28 @@
-import { useEffect, useState } from 'react'
-import { NextPage } from 'next'
-import { useRouter } from 'next/router'
-import { observer } from 'mobx-react-lite'
-import { useStores } from '../../store'
+import { NextPage, GetServerSideProps } from 'next'
+import axios from 'axios'
 import { Container, Main } from '../../components/hoc'
 import { SingleProduct } from '../../components'
+import { IProduct } from '../../types/product'
 
-const SingleProductPage: NextPage = observer(() => {
+interface Props {
+  product: IProduct
+}
 
-  const { productStore } = useStores()
-  const router = useRouter()
-  const { slug } = router.query
-
-  useEffect(() => {
-    if (slug && !Array.isArray(slug)) {
-      productStore.getProduct(slug)
-    }
-  }, [slug])
-
-  // console.log(toJS(producе))
-
+const SingleProductPage: NextPage<Props> =({ product }) => {
   return (
     <Main>
       <Container>
-        {productStore.loading && <p>Загрузка...</p>}
-        {productStore.product && <SingleProduct product={productStore.product} />}
+        <SingleProduct product={product} />
       </Container>
     </Main>
   )
-})
+}
 
 export default SingleProductPage
+
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const { data } = await axios.get(`http://localhost:5000/api/products/product/` + params?.slug)
+  if (!data) return { notFound: true }
+
+  return { props: { product: data } }
+}

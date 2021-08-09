@@ -1,71 +1,81 @@
 import React from 'react'
+import { observer } from 'mobx-react-lite'
 import { NextPage } from 'next'
 import Link from 'next/link'
-import { Container, Main } from '../components/hoc'
-import { Form, FormData, FormDto } from '../components/generetic'
-import { useStores } from '../store'
-import { observer } from 'mobx-react-lite'
-import { RegisterDto } from '../utils/dto'
+import { useForm } from 'react-hook-form'
 
-const registerData: FormData = {
-  name: { 
-    value: '', 
-    placeholder: 'Имя', 
-    error: '', 
-    touched: false, 
-    rules: { required: true },
-  },
-  surname: { 
-    value: '', 
-    placeholder: 'Фамилия', 
-    error: '', 
-    touched: false,
-  },
-  email: { 
-    value: '', 
-    placeholder: 'Email', 
-    error: '', 
-    touched: false, 
-    rules: { required: true, email: true } 
-  },
-  password: { 
-    type: 'password', 
-    value: '', 
-    placeholder: 'Пароль', 
-    error: '', 
-    touched: false, 
-    rules: { required: true, min: 4, max: 20 } 
-  },
-  confirmPassword: { 
-    type: 'password', 
-    value: '', 
-    placeholder: 'Пароль еще раз', 
-    error: '', 
-    touched: false, 
-    rules: { required: true, min: 4, max: 20, password: '' } 
-  }
+import { Main, Container } from '../components/hoc'
+import { Input, Button } from '../components/generetic'
+import { useStores } from '../store'
+import { emailRegExp } from '../utils/validation'
+
+
+interface RegisterInputs {
+  name: string
+  surname?: string
+  email: string
+  password: string
 }
 
 const Register: NextPage = observer(() => {
 
   const { userStore } = useStores()
+  const {   
+    register, 
+    handleSubmit, 
+    formState: { errors, touchedFields } 
+  } = useForm<RegisterInputs>()
 
-  const submitHandler = (data: FormDto) => {
-    userStore.register(new RegisterDto(data))
-  }
+  const onSubmit = handleSubmit(data => {
+    userStore.register(data)
+  })
   
   return (
     <Main>
       <Container>
         <div className="lr-form">
+
           <div className="lr-form__header">
             <h1>Регистрация</h1>
           </div>
-          <Form 
-            data={registerData} 
-            onSubmit={d => submitHandler(d)}
-            buttonValue={'Регистрация'}
-          />
+
+          <form onSubmit={onSubmit}>
+            <Input 
+              name='name'
+              register={register}
+              error={errors.name}
+              touched={touchedFields.name}
+              rules={{ required: true }}
+              placeholder='Имя'
+            />
+            <Input 
+              name='surname'
+              register={register}
+              placeholder='Фамилия'
+            />
+            <Input 
+              name='email'
+              register={register}
+              error={errors.email}
+              touched={touchedFields.email}
+              rules={{ required: true, pattern: {
+                value: emailRegExp,
+                message: 'Некорректная почта'
+              } }}
+              placeholder='Почта'
+            />
+            <Input 
+              name='password'
+              type='password'
+              register={register}
+              error={errors.password}
+              touched={touchedFields.password}
+              rules={{ required: true }}
+              placeholder='Пароль'
+            />
+            <Button type='submit'>Отправить</Button>
+          </form>
+
           <p className="lr-form__link">Уже есть акканут?<Link href='/login'>Вход</Link></p>
         </div>
       </Container>

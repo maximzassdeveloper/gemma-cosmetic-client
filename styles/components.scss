@@ -24,6 +24,15 @@
   }
 }
 
+.footer {
+  background: $accent;
+  margin-top: 80px;
+  padding: 40px 0;
+  * {
+    color: #fff;
+  }
+}
+
 .count {
   display: flex;
   align-items: center;
@@ -80,6 +89,94 @@
       text-underline-offset: 2px;
       margin-left: 5px;
     }
+  }
+}
+
+.rating {
+  height: 18px;
+}
+
+.star {
+  stroke: $yellow;
+  height: 18px;
+  width: 18px;
+  transition: .1s;
+  &.fill {
+    fill: $yellow;
+  }
+}
+
+.comments {
+  margin-top: 60px;
+  h2 {
+    font-size: 24px;
+    margin-bottom: 30px;
+    font-weight: 500;
+  }
+  &__flex {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__list {
+    position: relative;
+    width: 60%;
+    max-width: 100%;
+    padding-right: 30px;
+  }
+}
+
+.create-comment {
+  width: 40%;
+  max-width: 100%;
+  .create-rating {
+    position: relative;
+    margin-bottom: 10px;
+    transition: .2s;
+    &.error {
+      margin-bottom: 30px;
+    }
+    .input__error {
+      top: calc(100% + 2px);
+      z-index: 1;
+    }
+    svg {
+      height: 22px;
+      width: 22px;
+      cursor: pointer;
+      margin-right: 5px;
+      transform-origin: center;
+      &.fill {
+        transform: scale(1.1);
+      }
+    }
+  }
+  h3 {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  h4 {
+    margin-bottom: 10px;
+  }
+}
+
+.comment {
+  max-width: 600px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba($main2, .2);
+  margin-bottom: 20px;
+  &__header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    h4 {
+      margin-right: 10px;
+      font-weight: 500;
+    }
+  }
+  &__message {
+    font-size: 14px;
+    line-height: 1.4em;
   }
 }
 

@@ -5,6 +5,7 @@ $accent: #6A4242;
 $bg: #F4EADD;
 $bg2: #F6E3CA;
 
+$yellow: #edcd40;
 $error: #e84444;
 $success: #4dc545;
 
@@ -64,6 +65,9 @@ h1, h2, h3, h4, h5, h6 {
 
 p {
   line-height: 1.5em;
+  a {
+    text-decoration: underline;
+  }
 }
 
 a {

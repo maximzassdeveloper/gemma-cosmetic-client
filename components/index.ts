@@ -1,5 +1,6 @@
 export { Product } from './Product/Product'
 export { SingleProduct } from './Product/SingleProduct'
 export { Header } from './Header'
+export { Footer } from './Footer'
 export { ProductList } from './ProductList'
 export { Cart } from './Cart/Cart'
