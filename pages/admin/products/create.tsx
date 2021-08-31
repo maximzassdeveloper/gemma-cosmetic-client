@@ -40,7 +40,7 @@ const CreateProductPage: NextPage = () => {
       data.img.forEach((i, index) => formData.append(`img${index}`, i))
     }
 
-    await authAxios.post('http://localhost:5000/api/products/create', formData)
+    await authAxios.post(`/products/create`, formData)
     console.log(data)
   })
 

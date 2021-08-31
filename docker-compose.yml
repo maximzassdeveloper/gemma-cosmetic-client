@@ -1,7 +1,8 @@
-version: '3.8'
+version: '3.0'
 
 services: 
   client:
+    container_name: client
     build: 
       context: .
   
@@ -10,3 +11,5 @@ services:
       context: ./nginx
     ports: 
       - 3000:3000
+    depends_on: 
+      - client

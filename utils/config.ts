@@ -1,2 +1,5 @@
+// import dotenv from 'dotenv'
+// dotenv.config()
+
 export const CURRENCY = 'руб'
-export const SERVER_URL = process.env.SERVER_HOST || 'http://localhost:5000'
+export const SERVER_URL = 'http://localhost:5000'

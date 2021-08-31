@@ -2,13 +2,14 @@ import { Dispatch } from 'react'
 import { ProductAction, ProductActionTypes } from '../../types/product'
 import axios from 'axios'
 import authAxios from '../../services/axiosService'
+import { SERVER_URL } from '../../utils/config'
 
 export const getProducts = () => {
   return async (dispatch: Dispatch<ProductAction>) => {
     try {
       dispatch({type: ProductActionTypes.GET_PRODUCTS})
 
-      const { data } = await axios.get('http://localhost:5000/api/products')
+      const { data } = await axios.get(`${SERVER_URL}/api/products`)
       dispatch({ type: ProductActionTypes.GET_PRODUCTS_SUCCESS, payload: data.products })
 
     } catch {
@@ -23,7 +24,7 @@ export const getProducts = () => {
 export const deleteProduct = (id: number) => {
   return async (dispatch: Dispatch<ProductAction>) => {
     try {
-      await authAxios.delete(`http://localhost:5000/api/products/delete/${id}`)
+      await authAxios.delete(`${SERVER_URL}/api/products/delete/${id}`)
       dispatch({
         type: ProductActionTypes.DELETE_PRODUCT,
         payload: id
@@ -39,7 +40,7 @@ export const getCategories = () => {
     try {
       dispatch({type: ProductActionTypes.GET_CATS})
 
-      const { data } = await axios.get('http://localhost:5000/api/categories')
+      const { data } = await axios.get(`${SERVER_URL}/api/categories`)
       dispatch({ type: ProductActionTypes.GET_CATS_SUCCESS, payload: data })
 
     } catch {
@@ -55,7 +56,7 @@ export const addCategory = (name: string) => {
   return async (dispatch: Dispatch<ProductAction>) => {
     try {
       const { data } = await authAxios.post(
-        'http://localhost:5000/api/categories/create', 
+        `${SERVER_URL}/api/categories/create`,
         { name }
       )
       dispatch({

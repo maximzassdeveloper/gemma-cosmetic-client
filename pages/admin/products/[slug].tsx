@@ -7,6 +7,7 @@ import { IAttribute, IProduct, IProductAttribute } from '../../../types/product'
 import { Button, Input, Textarea, FileUpload } from '../../../components/generetic'
 import authAxios from '../../../services/axiosService'
 import axios from 'axios'
+import { fetchData } from '../../../services/dataService'
 
 interface FormInputs {
   name: string
@@ -58,7 +59,7 @@ const AdminSingleProductPage: NextPage<Props> = ({ product }) => {
     }
 
     await authAxios.put(
-      `http://localhost:5000/api/products/update/${product.id}`,
+      `/products/update/${product.id}`,
       formData
     )
   })
@@ -122,8 +123,8 @@ const AdminSingleProductPage: NextPage<Props> = ({ product }) => {
 export default AdminSingleProductPage
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const { data } = await axios.get(`http://localhost:5000/api/products/product/` + params?.slug)
-  if (!data) return { notFound: true }
+  const product = await fetchData(`/products/product/` + params?.slug)
+  if (!product) return { notFound: true }
 
-  return { props: { product: data } }
+  return { props: { product } }
 }
