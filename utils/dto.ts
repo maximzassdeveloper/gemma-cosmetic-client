@@ -1,4 +1,5 @@
-import { ICartProduct, IProduct } from '../types/product'
+import { IProduct } from '../types/product'
+import { ICartProduct } from '../types/cart'
 import { IRegisterData, ILoginData } from '../types/user'
 
 export class RegisterDto implements IRegisterData {
@@ -21,25 +22,5 @@ export class LoginDto implements ILoginData {
   constructor(data: { [name: string]: string }) {
     this.email = data.email
     this.password = data.password
-  }
-}
-
-export class CartProductDto implements ICartProduct {
-  id: number = 0
-  name: string = ''
-  slug: string = ''
-  price: number = 0
-  totalPrice: number = 0
-  count: number = 0
-  img: string = ''
-  
-  constructor(product: IProduct, count: number) {
-    this.id = product.id
-    this.name = product.name
-    this.slug = product.slug
-    this.price = product.price
-    this.count = count
-    this.totalPrice = product.price * count
-    // this.img = product.images[0]
   }
 }

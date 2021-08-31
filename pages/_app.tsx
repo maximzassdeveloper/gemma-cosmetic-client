@@ -1,22 +1,31 @@
-import { useEffect } from 'react'
+import { FC, useEffect } from 'react'
 import { AppProps } from 'next/app'
-import { StoreProvider, useStores } from '../store'
+import { Provider } from 'react-redux'
+import { store } from '../rstore'
+import { useActions } from '../hooks/useActions'
 import '../styles/global.scss'
 
-function MyApp({ Component, pageProps }: AppProps) {
+const ComponentForRefresh: FC = () => {
 
-  const { userStore } = useStores()
+  const { refresh } = useActions()
 
   useEffect(() => {
     const token = localStorage.getItem('costoken')
     if (token) {
-      userStore.refresh()
+      refresh()
     }
   }, [])
 
-  return <StoreProvider>
-    <Component {...pageProps} />
-  </StoreProvider>
+  return <></>
+}
+
+function MyApp({ Component, pageProps }: AppProps) {
+  return (
+    <Provider store={store}>
+      <ComponentForRefresh />
+      <Component {...pageProps} />
+    </Provider>
+  )
 }
 
 export default MyApp

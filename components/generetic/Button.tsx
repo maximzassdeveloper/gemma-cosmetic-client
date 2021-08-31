@@ -1,17 +1,18 @@
 import React, { FC } from 'react'
-import classnames from 'classnames'
+import classnames from '../../utils/classnames'
+import { Loading } from '..'
 
 interface ButtonProps {
   className?: string
+  loading?: boolean
   type?: 'button' | 'reset' | 'submit'
   style?: React.CSSProperties
   onClick?: React.MouseEventHandler<HTMLButtonElement>
 }
 
 export const Button: FC<ButtonProps> = ({ 
-  children, className, type, style, onClick 
+  children, className, loading, type, style, onClick 
 }) => {
-
   const clickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { currentTarget } = e
     const attrName = 'click-animating'
@@ -31,7 +32,7 @@ export const Button: FC<ButtonProps> = ({
     if (onClick) onClick(e)
   }
 
-  const classes = classnames('button', className)
+  const classes = classnames('button', className, { 'loading': loading })
 
   return (
     <button
@@ -41,6 +42,7 @@ export const Button: FC<ButtonProps> = ({
       onClick={clickHandler}
     >
       {children}
+      {loading ? <Loading /> : null}
     </button>
   )
 }

@@ -1,4 +1,5 @@
-import { ICartProduct, IProduct } from '../types/product'
+import { ICartProduct } from '../types/cart'
+import { IProduct } from '../types/product'
 
 export const createCartProduct = (product: IProduct, count: number): ICartProduct => {
   const cartProduct = {} as ICartProduct

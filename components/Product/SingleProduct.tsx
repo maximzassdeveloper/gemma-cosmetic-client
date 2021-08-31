@@ -1,15 +1,15 @@
 import { FC } from 'react'
 import { IProduct } from '../../types/product'
 import { Price, AddToCart } from '.'
-import { observer } from 'mobx-react-lite'
 import { CommentList } from '../Comment/CommentList'
 import { Rating } from './Rating'
+import { SingleProductImages } from './SingleProductImages'
 
 interface SingleProductProps {
   product: IProduct
 }
 
-export const SingleProduct: FC<SingleProductProps> = observer(({ product }) => {
+export const SingleProduct: FC<SingleProductProps> = ({ product }) => {
 
   const calcRating = (): number => {
     if (!product.comments) return 0
@@ -31,20 +31,10 @@ export const SingleProduct: FC<SingleProductProps> = observer(({ product }) => {
           <p className="single-product__short-desc">{product.shortDesc}</p>
         </div>
 
-        <div className="single-product__images">
-          {
-            product.images.length === 1
-              ? <img src={product.images[0]} alt={product.name} />
-              : <div className="single-product__slider">
-                {product.images.map(img => 
-                  <img src={img} alt={product.name} />
-                )}
-              </div>
-          }
-        </div>
+        <SingleProductImages images={product.images} alt={product.name} />
 
       </div>
       <CommentList productId={product.id} comments={product.comments} />
     </div>
   )
-})
+}

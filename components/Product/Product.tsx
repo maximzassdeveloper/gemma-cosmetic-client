@@ -1,5 +1,4 @@
 import { FC } from 'react'
-import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 
 import { IProduct } from '../../types/product'
@@ -9,13 +8,13 @@ interface ProductProps {
   product: IProduct
 }
 
-export const Product: FC<ProductProps> = observer(({ product }) => {
+export const Product: FC<ProductProps> = ({ product }) => {
   return (
     <div className="product">
       
       <div className="product__image">
         <Link href={`/product/${product.slug}`}>
-          <img src={product.images[0]} alt={product.name} />
+          <img src={product.images[0]} loading='lazy' alt={product.name} />
         </Link>
       </div>
 
@@ -29,4 +28,4 @@ export const Product: FC<ProductProps> = observer(({ product }) => {
       
     </div>
   )
-})
+}

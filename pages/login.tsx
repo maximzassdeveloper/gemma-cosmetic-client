@@ -1,40 +1,42 @@
 import React from 'react'
-import { observer } from 'mobx-react-lite'
 import { NextPage } from 'next'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 
 import { Main, Container } from '../components/hoc'
 import { Input, Button } from '../components/generetic'
-import { useStores } from '../store'
 import { emailRegExp } from '../utils/validation'
-
+import { useActions } from '../hooks/useActions'
+import { useTypesSelector } from '../hooks/useTypedSelector'
 
 interface LoginInputs {
   email: string
   password: string
 }
 
-const Login: NextPage = observer(() => {
+const Login: NextPage = () => {
 
-  const { userStore } = useStores()
-  const {   
-    register, 
-    handleSubmit, 
-    formState: { errors, touchedFields } 
-  } = useForm<LoginInputs>()
+  const { login } = useActions()
+  const { loading, error } = useTypesSelector(state => state.user)
+  const { register, handleSubmit, formState: { errors, touchedFields, isSubmitted } } = useForm<LoginInputs>()
+  const router = useRouter()
 
   const onSubmit = handleSubmit(data => {
-    userStore.login(data)
+    login(data)
   })
+
+  React.useEffect(() => {
+    if (!error && !loading && isSubmitted) router.push('/')
+  }, [error, loading])
   
   return (
-    <Main>
+    <Main title={'Авторизация'}>
       <Container>
         <div className="lr-form">
 
           <div className="lr-form__header">
-            <h1>Регистрация</h1>
+            <h1>Вход</h1>
           </div>
 
           <form onSubmit={onSubmit}>
@@ -58,14 +60,21 @@ const Login: NextPage = observer(() => {
               rules={{ required: true }}
               placeholder='Пароль'
             />
-            <Button type='submit'>Отправить</Button>
+            <Button 
+              loading={loading} 
+              type='submit'
+            >
+              {(loading || !isSubmitted || error) && 'Отправить'}
+              {!loading && isSubmitted && !error && 'Успешно'}
+            </Button>
+            {!!error && <p className="lr-form__error">{error}</p>}
           </form>
-
+          
           <p className="lr-form__link">Нет аккаунта?<Link href='/register'>Зарегистрируйтесь</Link></p>
         </div>
       </Container>
     </Main>
   )
-})
+}
 
 export default Login

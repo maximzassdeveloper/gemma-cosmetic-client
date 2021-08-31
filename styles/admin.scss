@@ -1,0 +1,142 @@
+.admin {
+  background: #fff;
+  min-height: 100vh;
+  * {
+    color: $admin-main;
+  }
+  &__wrapper {
+    align-items: flex-start;
+    display: flex;
+  }
+  &__sidebar {
+    width: 100%;
+    max-width: 250px;
+  }
+  &__container {
+    position: relative;
+    width: 100%;
+    margin-left: 250px;
+    padding: 30px;
+  }
+  &__header {
+    position: sticky;
+    top: 0;
+    padding: 15px 2%;
+    background: #fff;
+    border-bottom: 2px solid $admin-accent;
+    z-index: 20;
+    .logo {
+      font-weight: 500;
+    }
+  }
+  .button {
+    background: $admin-accent;
+    color: #fff;
+  }
+}
+
+.admin-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-height: 100vh;
+  padding: 60px 10px 30px;
+  border-right: 2px solid $admin-accent;
+  z-index: 19;
+  &__menu {
+    margin-top: 20px;
+    li {
+      a {
+        display: block;
+        padding: 7px 15px;
+        &.active {
+          background: $admin-accent;
+          color: #fff;
+        }
+      }
+      &:hover {
+        a {
+          background: $admin-accent;
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+.create-sidebar {
+  position: absolute;
+  z-index: 10;
+  right: 0;
+  top: 0;
+  background: #fff;
+  padding: 20px 10px;
+  width: 300px;
+  border-left: 2px solid $admin-accent;
+}
+
+.admin-products {
+  .item {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 15px;
+    &__id {
+      flex: 40px 1;
+    }
+    &__name {
+      flex: 50% 1;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    &__price {
+      flex: 20% 1;
+    }
+    &__delete {
+      flex: 30px 1;
+      cursor: pointer;
+      svg {
+        stroke: $admin-grey2;
+      }
+    }
+  }
+}
+
+.admin__list {
+  width: 100%;
+  a {
+    text-decoration: underline;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  thead {
+    border-bottom: 1px solid #ccc;
+    .column {
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+  .row {
+    padding: 8px 10px;
+    &:nth-child(even) { background: #f4f4f4; }
+  }
+  .column {
+    padding: 15px 10px;
+    text-align: left;
+    font-weight: 400;
+    font-size: 14px;
+    vertical-align: top;
+
+    &-id { width: 50px; }
+    &-name { font-weight: 500; }
+    &-price { width: 20%; font-size: 16px; }
+    &-date {
+      width: 17%;
+      font-size: 13px;
+      p { display: block; }
+    }
+  }
+}

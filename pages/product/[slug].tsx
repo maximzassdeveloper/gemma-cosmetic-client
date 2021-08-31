@@ -3,6 +3,8 @@ import axios from 'axios'
 import { Container, Main } from '../../components/hoc'
 import { SingleProduct } from '../../components'
 import { IProduct } from '../../types/product'
+import { SERVER_URL } from '../../utils/config'
+import { fetchData } from '../../services/dataService'
 
 interface Props {
   product: IProduct
@@ -10,7 +12,7 @@ interface Props {
 
 const SingleProductPage: NextPage<Props> =({ product }) => {
   return (
-    <Main>
+    <Main title={`${product.name}`}>
       <Container>
         <SingleProduct product={product} />
       </Container>
@@ -21,8 +23,8 @@ const SingleProductPage: NextPage<Props> =({ product }) => {
 export default SingleProductPage
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const { data } = await axios.get(`http://localhost:5000/api/products/product/` + params?.slug)
-  if (!data) return { notFound: true }
+  const products = await fetchData(`/products/product/` + params?.slug)
+  if (!products) return { notFound: true }
 
-  return { props: { product: data } }
+  return { props: { products } }
 }

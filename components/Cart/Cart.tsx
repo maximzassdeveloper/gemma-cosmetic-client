@@ -1,46 +1,44 @@
 import { FC, useEffect } from 'react'
-import { observer } from 'mobx-react-lite'
 import { X } from 'react-feather'
-import classnames from 'classnames'
+import classnames from '../../utils/classnames'
 
-import { useStores } from '../../store'
 import { CartItem } from './CartItem'
 import { CartCheckout } from './CartCheckout'
+import { useActions } from '../../hooks/useActions'
+import { useTypesSelector } from '../../hooks/useTypedSelector'
 
-export const Cart: FC = observer(() => {
+export const Cart: FC = () => {
 
-  const { cartStore, userStore } = useStores()
-
-  const calcTotalPrice = (): number => {
-    return cartStore.products.reduce((total, x) => total + x.totalPrice, 0)
-  }
+  const { getCart, setActiveCart } = useActions()
+  const { total, active, count, products } = useTypesSelector(state => state.cart)
+  const { isAuth } = useTypesSelector(state => state.user)
 
   useEffect(() => {
-    cartStore.getCart()
-  }, [userStore.isAuth])
+    getCart()
+  }, [isAuth])
 
   return (
-    <div className={classnames('cart', { 'active': cartStore.active })}>
+    <div className={classnames('cart', { 'active': active })}>
 
       <div className="cart__header">
         <h3>Корзина</h3>
         <X 
           className="cart__close" 
-          onClick={() => cartStore.setActive(false)}
+          onClick={() => setActiveCart(false)}
         />
       </div>
 
       <div className="cart__items">
-        {!cartStore.count && <p>Корзина пустая</p>}
-        {!!cartStore.count && (
-          cartStore.products.map(item =>
+        {!count && <p>Корзина пустая</p>}
+        {!!count && (
+          products.map(item =>
             <CartItem key={item.id} product={item} />
           )
         )}
       </div>
 
-      <CartCheckout total={calcTotalPrice()} />
+      <CartCheckout count={count} total={total} />
 
     </div>
   )
-})
+}

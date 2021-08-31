@@ -1,11 +1,20 @@
 import { FC } from 'react'
+import { useRouter } from 'next/router'
 import { Price } from '../Product/Price'
 
 interface CartCheckoutProps {
   total: number
+  count: number
 }
 
-export const CartCheckout: FC<CartCheckoutProps> = ({ total }) => {
+export const CartCheckout: FC<CartCheckoutProps> = ({ total, count }) => {
+
+  const router = useRouter()
+
+  const checkoutHandler = () => {
+    if (count > 1) router.push('/checkout')
+  }
+
   return (
     <div className="cart-checkout">
 
@@ -16,11 +25,7 @@ export const CartCheckout: FC<CartCheckoutProps> = ({ total }) => {
         </div>
       </div>
 
-      <button
-        className="cart-checkout__button"
-      >
-        Оформить заказ
-      </button>
+      <button onClick={checkoutHandler} className="cart-checkout__button">Оформить заказ</button>
 
     </div>
   )

@@ -1,20 +1,23 @@
-import { observer } from 'mobx-react-lite'
 import { FC } from 'react'
 import { X } from 'react-feather'
-import { useStores } from '../../store'
-import { ICartProduct } from '../../types/product'
+import { useActions } from '../../hooks/useActions'
+import { ICartProduct } from '../../types/cart'
 import { ChangeCount, Price } from '../Product'
 
 interface CartItemProps {
   product: ICartProduct
 }
 
-export const CartItem: FC<CartItemProps> = observer(({ product }) => {
+export const CartItem: FC<CartItemProps> = ({ product }) => {
 
-  const { cartStore } = useStores()
+  const { updateCartProduct, deleteCartProduct } = useActions()
 
   const changeCount = (count: number) => {
-    cartStore.updateProduct(product.id, count)
+    updateCartProduct(product.slug, count)
+  }
+
+  const deleteHandler = () => {
+    deleteCartProduct(product.id)
   }
 
   return (
@@ -26,7 +29,7 @@ export const CartItem: FC<CartItemProps> = observer(({ product }) => {
         {product.name}
         <X 
           className="cart-item__delete" 
-          onClick={() => cartStore.deleteProduct(product.id)}
+          onClick={deleteHandler}
         />
       </div>
       <div className="cart-item__price">
@@ -39,4 +42,4 @@ export const CartItem: FC<CartItemProps> = observer(({ product }) => {
       </div>
     </div>
   )
-})
+}

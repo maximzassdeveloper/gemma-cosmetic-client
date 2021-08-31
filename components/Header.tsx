@@ -1,17 +1,19 @@
 import { FC } from 'react'
 import Link from 'next/link'
 import { Container } from './hoc'
-import { useStores } from '../store'
-import { observer } from 'mobx-react-lite'
 import { Cart } from './Cart/Cart'
+import { useActions } from '../hooks/useActions'
+import { useTypesSelector } from '../hooks/useTypedSelector'
 
-export const Header: FC = observer(() => {
+export const Header: FC = () => {
 
-  const { userStore, cartStore } = useStores()
+  const { setActiveCart, clearCart, logout } = useActions()
+  const { active, count } = useTypesSelector(state => state.cart)
+  const { isAuth, user } = useTypesSelector(state => state.user)
 
   const logoutHandler = () => {
-    userStore.logout()
-    cartStore.setProducts([])
+    logout()
+    clearCart()
   }
 
   return <>
@@ -24,16 +26,21 @@ export const Header: FC = observer(() => {
 
         <nav className="header__menu">
           <ul>
+            <li><Link href='/catalog'>Каталог</Link></li>
+            <li><Link href='/reviews'>Отзывы</Link></li>
+            <li><Link href='/blog'>Блог</Link></li>
+            <li><Link href='/partners'>Стать партнером</Link></li>
           </ul>
         </nav>
 
         <div className="header__info">
-          {userStore.isAuth
+          {isAuth
             ? <>
-              <span onClick={() => cartStore.setActive(!cartStore.active)}>
-                Корзина {cartStore.count}
+              {user.role === 'ADMIN' ? <Link href='/admin'>Админка</Link> : null}
+              <span onClick={() => setActiveCart(!active)}>
+                Корзина {count}
               </span>
-              <span>{userStore.user.name}</span>
+              <Link href={`/user/${user.id}`}>{user.name}</Link>
               <span onClick={logoutHandler}>Выход</span>
             </>
             : <>
@@ -45,6 +52,6 @@ export const Header: FC = observer(() => {
 
       </Container>
     </header>
-    <Cart />
+    {isAuth && <Cart />}
   </>
-})
+}

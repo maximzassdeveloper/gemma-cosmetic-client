@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import classnames from 'classnames'
+import classnames from '../../utils/classnames'
 import { CURRENCY } from '../../utils/config'
 
 interface PriceProps {

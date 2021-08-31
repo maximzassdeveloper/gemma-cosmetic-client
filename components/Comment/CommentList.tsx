@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { IComment } from '../../types/product'
 import { CommentItem } from './CommentItem'
 import { CreateComment } from './CreateComment'
@@ -8,7 +8,14 @@ interface Props {
   productId: number
 }
 
-export const CommentList: FC<Props> = ({ comments, productId }) => {
+export const CommentList: FC<Props> = ({ comments: serverComments, productId }) => {
+
+  const [comments, setComments] = useState(serverComments || [])
+
+  const onCreateComment = (com: IComment) => {
+    setComments([com, ...comments])
+  }
+
   return (
     <div className="comments">
       <h2>Отзывы</h2>
@@ -19,7 +26,7 @@ export const CommentList: FC<Props> = ({ comments, productId }) => {
             <CommentItem key={com.id} comment={com} />
           )}
         </div>
-        <CreateComment productId={productId} />
+        <CreateComment onCreate={c => onCreateComment(c)} productId={productId} />
       </div>
     </div>
   )

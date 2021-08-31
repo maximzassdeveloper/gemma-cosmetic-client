@@ -1,36 +1,37 @@
 import { FC, useState, useEffect } from 'react'
-import { observer } from 'mobx-react-lite'
 import { Button } from '../generetic'
 import { ChangeCount } from './ChangeCount'
-import { useStores } from '../../store'
 import { createCartProduct } from '../../utils/createData'
 import { IProduct } from '../../types/product'
+import { useActions } from '../../hooks/useActions'
+import { useTypesSelector } from '../../hooks/useTypedSelector'
 
 interface AddToCartProps {
   className?: string
   product: IProduct
 }
 
-export const AddToCart: FC<AddToCartProps> = observer(({ className, product }) => {
+export const AddToCart: FC<AddToCartProps> = ({ className, product }) => {
 
-  const { cartStore } = useStores()
+  const { addCartProduct, setActiveCart, updateCartProduct } = useActions()
+  const { products } = useTypesSelector(state => state.cart)
   const [count, setCount] = useState(1) 
   const [found, setFound] = useState(false)
 
   const addHandler = () => {
-    cartStore.addProduct(createCartProduct(product, count))
-    cartStore.setActive(true)
+    addCartProduct(createCartProduct(product, count))
+    setActiveCart(true)
   }
 
   const countChange = (c: number) => {
     setCount(c)
     if (found) {
-      cartStore.updateProduct(findProduct()?.id || 0, c)
+      updateCartProduct(findProduct()?.slug || '', c)
     }
   }
 
   const findProduct = () => {
-    return cartStore.products.find(x => x.slug === product.slug)
+    return products.find(x => x.slug === product.slug)
   }
 
   useEffect(() => {
@@ -42,7 +43,7 @@ export const AddToCart: FC<AddToCartProps> = observer(({ className, product }) =
       setFound(false)
       setCount(1)
     }
-  }, [cartStore.products])
+  }, [products])
 
   return (
     <div className={`add-to-cart ${className || ''}`.trim()}>
@@ -56,4 +57,4 @@ export const AddToCart: FC<AddToCartProps> = observer(({ className, product }) =
       }
     </div>
   )
-})
+}

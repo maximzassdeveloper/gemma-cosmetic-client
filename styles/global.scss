@@ -11,6 +11,11 @@ $success: #4dc545;
 
 $input-accent: #40a9ff;
 
+$admin-grey: #C4C4C4;
+$admin-grey2: #858585;
+$admin-accent: #746AE4;
+$admin-main: #222;
+
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap');
 @import './components.scss';
 @import './generetic.scss';
@@ -18,12 +23,14 @@ $input-accent: #40a9ff;
 @import './product.scss';
 @import './cart.scss';
 @import './media.scss';
+@import './admin.scss';
+@import './admin-widgets.scss';
 
 body, html {
   margin: 0;
   padding: 0;
   width: 100%;
-  min-height: 100vh;
+  min-height: 100%;
   background: $bg;
 }
 
@@ -73,6 +80,21 @@ p {
 a {
   color: $main;
   text-decoration: none;
+}
+
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.main {
+  flex: 1 1 auto;
+}
+
+.page {
+  h1 {
+    margin-bottom: 30px;
+  }
 }
 
 *[click-animating=true]:after {

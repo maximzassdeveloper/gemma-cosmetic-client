@@ -1,14 +1,15 @@
 import { FC, useState } from 'react'
-import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
-import { useStores } from '../../store'
 import { Button, Textarea } from '../generetic'
 import { CreateRating } from './CreateRating'
 import authAxios from '../../services/axiosService'
+import { useTypesSelector } from '../../hooks/useTypedSelector'
+import { IComment } from '../../types/product'
 
 interface CreateCommentProps {
   productId: number
+  onCreate: (comment: IComment) => void
 }
 
 interface FormInputs {
@@ -16,10 +17,11 @@ interface FormInputs {
   message: string
 }
 
-export const CreateComment: FC<CreateCommentProps> = observer(({ productId }) => {
+export const CreateComment: FC<CreateCommentProps> = ({ productId, onCreate }) => {
 
-  const { userStore: { user, isAuth } } = useStores()
+  const { isAuth, user } = useTypesSelector(state => state.user)
   const { 
+    reset,
     register, 
     setValue, 
     handleSubmit, 
@@ -27,13 +29,14 @@ export const CreateComment: FC<CreateCommentProps> = observer(({ productId }) =>
   } = useForm<FormInputs>()
   const [ratingError, setRatingError] = useState(true)
 
-  const fullName = (): string => {
-    return (user.name + ' ' + user.surname).trim()
-  }
-
   const onSubmit = handleSubmit(async ({ rating, message }) => {
     if (!ratingError) {
-      await authAxios.post('/comments/create', { name: fullName(), rating, message, productId })
+      const { data } = await authAxios.post(
+        '/comments/create', 
+        { name: user.fullName, rating, message, productId }
+      )
+      onCreate(data)
+      reset()
     }
   }) 
 
@@ -47,8 +50,11 @@ export const CreateComment: FC<CreateCommentProps> = observer(({ productId }) =>
       <h3>Оставить отзыв</h3>
       {!isAuth && <p>Чтобы оставить отзыв нужно <Link href='/login'>Авторизоваться</Link></p>}
       {isAuth && <form onSubmit={onSubmit}>
-        <h4>{fullName()}</h4>
-        <CreateRating onChange={v => ratingHandler(v)} error={ratingError && isSubmitted} />
+        <h4>{user.fullName}</h4>
+        <CreateRating  
+          onChange={v => ratingHandler(v)} 
+          error={ratingError && isSubmitted} 
+        />
         <Textarea 
           name='message'
           placeholder={'Текст отзывы'}
@@ -57,9 +63,8 @@ export const CreateComment: FC<CreateCommentProps> = observer(({ productId }) =>
           error={errors.message}
           touched={touchedFields.message}
         />
-        {/* {ratingError && isSubmitted && <p>Обязательно для заполнения</p>} */}
         <Button type='submit'>Отправить</Button>
       </form>}
     </div>
   )
-})
+}

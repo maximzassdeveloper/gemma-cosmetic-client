@@ -18,15 +18,21 @@
   min-width: 230px;
   max-width: 250px;
   width: 100%;
+  display: flex;
+  flex-direction: column;
   &__content {
     padding: 10px 5px;
     position: relative;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
   }
   &__name {
     font-size: 16px;
     font-weight: 400;
     margin-bottom: 10px;
     cursor: pointer;
+    flex: 1 1 auto;
     &:hover {
       text-decoration: underline;
     }
@@ -38,6 +44,7 @@
   }
   &__add {
     display: flex;
+    align-items: flex-end;
     .count {
       width: 100%;
     }
@@ -61,6 +68,35 @@
       top: 0;
       object-fit: cover;
     }
+  }
+}
+
+.product-line {
+  display: flex;
+  margin-bottom: 15px;
+  &__image {
+    flex: 60px 1 1;
+    img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+    } 
+  }
+  &__name {
+    margin-top: 10px;
+    flex: 50% 1 1;
+    font-size: 14px;
+    padding-left: 10px;
+  }
+  &__price {
+    margin-top: 10px;
+    flex: 20% 1 1;
+    text-align: right;
+  }
+  &__count {
+    margin-top: 10px;
+    flex: 15% 1 1;
+    text-align: right;
   }
 }
 
@@ -96,11 +132,41 @@
   }
   &__images {
     flex: 1 1 45%;
+    position: relative;
+  }
+  &__arrows {
+    position: absolute;
+    bottom: 0;
+    right: 510px;
+    .arrow {
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+      border: 1px solid $accent;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      svg {
+        stroke-width: 1px;
+      }
+    }
+  }
+  &__image {
+    width: 500px;
+    height: 500px;
+    max-width: 100%;
+    position: relative;
+    margin-left: auto;
+    display: block;
     img {
-      max-width: 500px;
+      position: absolute;
+      left: 0;
+      top: 0;
       width: 100%;
-      display: block;
-      margin-left: auto;
+      height: 100%;
+      object-fit: cover;
     }
   }
 }

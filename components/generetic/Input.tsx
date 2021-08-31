@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
 import { FieldError, UseFormRegister } from 'react-hook-form'
-import classnames from 'classnames'
+import classnames from '../../utils/classnames'
 import { useTransition, animated } from '@react-spring/web'
 import { CSSTransition } from 'react-transition-group'
 import { Eye, EyeOff } from 'react-feather'

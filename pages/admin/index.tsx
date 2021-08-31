@@ -4,7 +4,7 @@ import { AdminMain } from '../../components/hoc'
 const DashBoard: NextPage = () => {
   return (
     <AdminMain>
-      <h1></h1>
+      <h1>Главная панель</h1>
     </AdminMain>
   )
 }

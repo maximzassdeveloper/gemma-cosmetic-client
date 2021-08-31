@@ -1,29 +1,37 @@
 import { useEffect } from 'react'
-import { NextPage } from 'next'
-import { observer } from 'mobx-react-lite'
-
+import { GetServerSideProps, NextPage } from 'next'
 import { Container, Main } from '../components/hoc'
 import { ProductList } from '../components'
-import { useStores } from '../store'
+import { useActions } from '../hooks/useActions'
+import { IProduct } from '../types/product'
+import { fetchData } from '../services/dataService'
 
-const Home: NextPage = observer(() => {
+interface HomeProps {
+  products: IProduct[]
+}
 
-  const { productStore } = useStores()
+const Home: NextPage<HomeProps> = ({ products }) => {
+
+  const { getProducts } = useActions()
 
   useEffect(() => {
-    productStore.getProducts()
+    getProducts()
   }, [])
 
   return (
     <Main>
       <Container>
         <ProductList 
-          products={productStore.products} 
-          loading={productStore.loading}
+          products={products}
+          loading={false}
         />
       </Container>
     </Main>
   )
-})
-
+}
 export default Home
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const products = await fetchData('/products')
+  return { props: { products: products || [] } }
+}

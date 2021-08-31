@@ -1,0 +1,61 @@
+.widget {
+  margin-bottom: 30px;
+}
+
+.widget-category {
+  width: 300px;
+  max-width: 100%;
+  .select__input {
+    border: 2px solid $admin-accent;
+  }
+  .select__options {
+    border: 2px solid $admin-accent;
+    border-top: none;
+  }
+  &__add {
+    form {
+      display: flex;
+    }
+    input {
+      width: 100%;
+      font-size: 15px;
+      padding: 0 10px;
+      border: 2px solid $admin-accent;
+      border-top: none;
+    }
+    button {
+      font-size: 14px;
+      color: #fff;
+      border: none;
+      background: $admin-accent;
+    }
+  }
+}
+
+.attribute-values {
+  width: max-content;
+  form {
+    margin-top: 10px;
+    display: flex;
+    align-items: flex-start;
+  }
+  input {
+    font-size: 14px;
+    padding: 8px;
+    width: 200px;
+    max-width: 100%;
+    margin-right: 10px;
+  }
+  button {
+    font-size: 14px;
+    padding: 8px;
+    min-width: 120px;
+  }
+  .item { 
+    padding: 10px 5px;
+    cursor: pointer;
+    &:hover {
+      background: #f4f4f4;
+    }
+  }
+}

@@ -1,12 +1,38 @@
 import { FC } from 'react'
+import Head from 'next/head'
 import { Header, Footer } from '..'
+import { useTypesSelector } from '../../hooks/useTypedSelector'
 
-export const Main: FC = ({ children }) => {
+interface MainProps {
+  authRequierd?: boolean
+  title?: string
+  description?: string
+  robots?: string
+  keywords?: string
+}
+
+export const Main: FC<MainProps> = ({ children, authRequierd, title, description, robots, keywords }) => {
+
+  const { isAuth } = useTypesSelector(state => state.user)
+
   return (
-    <main className="main">
+    <div className="wrapper">
+
+      <Head>
+        <title>{title ? `${title} - Gemma Cosmetic Russia` : 'Gemma Cosmetic Russia'}</title>
+        <meta name='description' content={description || 'Высококачественная продукция GEMMA KOREA премиум-класса прямо из Южной Кореи'} />
+        <meta name='robots' content={robots || 'index, follow'} />
+        <meta name='keywords' content={keywords || 'Продукция из Южной Кореи, Полезные товары'} />
+      </Head>
+
       <Header />
-      {children}
+      <main className="main">
+        {authRequierd 
+          ? isAuth ? children : <p>Недостаточно прав</p>
+          : children
+        }
+      </main>
       <Footer />
-    </main>
+    </div>
   )
 }

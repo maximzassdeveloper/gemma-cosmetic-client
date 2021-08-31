@@ -1,14 +1,14 @@
 import React from 'react'
-import { observer } from 'mobx-react-lite'
 import { NextPage } from 'next'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 
 import { Main, Container } from '../components/hoc'
 import { Input, Button } from '../components/generetic'
-import { useStores } from '../store'
 import { emailRegExp } from '../utils/validation'
-
+import { useActions } from '../hooks/useActions'
+import { useTypesSelector } from '../hooks/useTypedSelector'
 
 interface RegisterInputs {
   name: string
@@ -17,21 +17,23 @@ interface RegisterInputs {
   password: string
 }
 
-const Register: NextPage = observer(() => {
+const Register: NextPage = () => {
 
-  const { userStore } = useStores()
-  const {   
-    register, 
-    handleSubmit, 
-    formState: { errors, touchedFields } 
-  } = useForm<RegisterInputs>()
+  const { register: registerFunc } = useActions()
+  const { loading, error } = useTypesSelector(state => state.user)
+  const { register, handleSubmit, formState: { errors, touchedFields, isSubmitted } } = useForm<RegisterInputs>()
+  const router = useRouter()
 
   const onSubmit = handleSubmit(data => {
-    userStore.register(data)
+    registerFunc(data)
   })
+
+  React.useEffect(() => {
+    if (!error && !loading && isSubmitted) router.push('/')
+  }, [error, loading])
   
   return (
-    <Main>
+    <Main title={'Регистрация'}>
       <Container>
         <div className="lr-form">
 
@@ -73,7 +75,14 @@ const Register: NextPage = observer(() => {
               rules={{ required: true }}
               placeholder='Пароль'
             />
-            <Button type='submit'>Отправить</Button>
+            <Button 
+              loading={loading} 
+              type='submit'
+            >
+              {(loading || !isSubmitted || error) && 'Отправить'}
+              {!loading && isSubmitted && !error && 'Успешно'}
+            </Button>
+            {!!error && <p className="lr-form__error">{error}</p>}
           </form>
 
           <p className="lr-form__link">Уже есть акканут?<Link href='/login'>Вход</Link></p>
@@ -81,6 +90,6 @@ const Register: NextPage = observer(() => {
       </Container>
     </Main>
   )
-})
+}
 
 export default Register

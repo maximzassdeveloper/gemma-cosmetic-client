@@ -11,20 +11,26 @@
   "dependencies": {
     "@react-spring/web": "^9.2.4",
     "axios": "^0.21.1",
-    "classnames": "^2.2.6",
-    "mobx": "^6.3.2",
-    "mobx-react-lite": "^3.2.0",
     "next": "11.0.1",
+    "next-redux-wrapper": "^7.0.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-editor-js": "^1.10.0",
     "react-feather": "^2.0.9",
     "react-hook-form": "^7.12.2",
+    "react-redux": "^7.2.4",
     "react-transition-group": "^4.4.2",
-    "sass": "^1.37.0"
+    "redux": "^4.1.1",
+    "redux-thunk": "^2.3.0",
+    "sass": "^1.37.0",
+    "slugify": "^1.6.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/react": "17.0.15",
+    "@types/react-redux": "^7.1.18",
     "@types/react-transition-group": "^4.4.2",
+    "@types/uuid": "^8.3.1",
     "eslint": "7.31.0",
     "eslint-config-next": "11.0.1",
     "typescript": "4.3.5"
