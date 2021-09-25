@@ -16,13 +16,14 @@ export interface InputValidateRules {
 }
 
 interface InputProps {
-  register: UseFormRegister<any>
+  register?: UseFormRegister<any>
   error?: FieldError | undefined
   touched?: boolean
   rules?: InputValidateRules
 
   name: string
   type?: string
+  value?: string
   className?: string
   placeholder?: string
   autoComplete?: 'off' | 'on'
@@ -31,16 +32,10 @@ interface InputProps {
 }
 
 export const Input: FC<InputProps> = ({ 
-  register, error, touched, rules, name, type, className, placeholder, autoComplete, style, onChange
+  register, error, touched, rules, name, type, className, placeholder, autoComplete, style, value,  onChange
 }) => {
 
-  const { onChange: onChangeR, ...rest } = register(name, {...rules})
   const [password, setPassword] = useState<boolean | null>(type === 'password' || null)
-
-  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (onChange) onChange(e)
-    onChangeR(e)
-  }
 
   const classes = classnames(
     'input', 
@@ -60,14 +55,23 @@ export const Input: FC<InputProps> = ({
   
   return (
     <div className={classes}>
-      <input 
-        {...rest}
-        onChange={changeHandler}
-        type={password === null ? type || 'text' : password ? type : 'text'}
-        placeholder={placeholder}
-        autoComplete={autoComplete || 'off'}
-        style={style}
-      />
+      {register
+        ? <input 
+          {...register(name, {...rules})}
+          type={password === null ? type || 'text' : password ? type : 'text'}
+          placeholder={placeholder}
+          autoComplete={autoComplete || 'off'}
+          style={style}
+        />
+        : <input 
+          onChange={onChange}
+          value={value || ''}
+          type={password === null ? type || 'text' : password ? type : 'text'}
+          placeholder={placeholder}
+          autoComplete={autoComplete || 'off'}
+          style={style}
+        />
+      }
 
       <CSSTransition in={password !== null && password} timeout={100} mountOnEnter unmountOnExit>
         <EyeOff onClick={() => setPassword(false)} className="input__icon password" />

@@ -81,6 +81,81 @@
   }
 }
 
+.editor-wrapper {
+  max-width: 850px;
+  border: 1px solid #000000;
+  margin-bottom: 20px;
+  padding: 5px 15px;
+  background: $bg2;
+  .ce-toolbar__content {
+    max-width: 800px;
+  }
+}
+
+.editor-styles {
+  .ce-toolbar__content {
+    max-width: 800px;
+  }
+  .codex-editor__redactor {
+    padding-bottom: 150px !important;
+  }
+  p, .cdx-block {
+    font-weight: 400;
+    line-height: 1.5em;
+    margin-bottom: 10px;
+    font-size: 16px;
+    text-align: justify;
+  }
+  ul, ol {
+    padding: 0;
+    margin-bottom: 10px;
+    margin-left: 35px;
+  }
+  li {
+    padding: 0;
+    margin-bottom: 8px;
+    line-height: 1.5em;
+    font-size: 16px;
+    text-align: justify;
+  }
+  ol, ol li {
+    list-style: decimal;
+  }
+  ul, ul li {
+    list-style: disc;
+  }
+  .ce-header, .cdx-block { 
+    padding: 0; 
+  }
+  .ce-header {
+    margin: 5px 0 10px;
+  }
+  h1 {
+    font-size: 36px;
+    margin: 10px 0 15px;
+    line-height: 1.2em;
+    font-weight: 400;
+  }
+  h2 {
+    font-size: 26px;
+    font-weight: 500;
+    margin: 40px 0 15px;
+    line-height: 1.2em;
+    &:first-child {
+      margin: 10px 0 10px;
+    }
+  }
+  h3 {
+    font-size: 20px;
+  }
+  img, video {
+    width: 750px;
+    display: block;
+    margin: 30px auto;
+    max-width: 100%;
+  }
+}
+
 .textarea {
   font-size: 14px;
   textarea {
@@ -106,9 +181,16 @@
   border: none;
   cursor: pointer;
   z-index: 1;
-  transition: .2s;
+  transition: .2s, 0s background;
+  &:hover {
+    background: #785352;
+  }
+  * {
+    font-size: 16px;
+    font-weight: 400;
+    color: #fff;
+  }
   &:before {
-    content: '';
     display: block;
     position: absolute;
     width: 100%;
@@ -124,6 +206,7 @@
   }
   &.loading {
     &:before {
+      content: '';
       transform: scale(1);
       opacity: 1;
     }
@@ -213,7 +296,13 @@
       cursor: pointer;
       svg { stroke: #ccc; }
     }
-    img {
+    p {
+      font-size: 14px;
+      text-align: center;
+      margin-top: 50%;
+      transform: translateY(-50%);
+    }
+    img, video {
       width: 100%;
       height: 100%;
       left: 0;

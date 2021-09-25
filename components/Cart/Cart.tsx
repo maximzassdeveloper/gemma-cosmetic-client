@@ -17,6 +17,22 @@ export const Cart: FC = () => {
     getCart()
   }, [isAuth])
 
+  useEffect(() => {
+    if (!active) return
+
+    function cartOverClick(e) {
+      if (!e.target.closest('.cart') && !e.target.closest('.add-to-cart')) {
+        setActiveCart(false)
+      }
+    }
+
+    window.addEventListener('click', cartOverClick)
+    return () => {
+      window.removeEventListener('click', cartOverClick)
+    }
+
+  }, [active])
+
   return (
     <div className={classnames('cart', { 'active': active })}>
 

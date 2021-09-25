@@ -31,7 +31,7 @@ export const cartReducer = (state = initialState, action: CartAction): CartState
       const addedProducts = [...state.products, action.payload]
       return { ...state, products: addedProducts, count: state.count+1 }
 
-    case CartActionTypes.DELETE_PRODUCT:
+    case CartActionTypes.DELETE_CART_PRODUCT:
       const deletedProducts = state.products.filter(x => x.id !== action.payload)
       const deletecart = calcTotalAndCount(deletedProducts)
       return { ...state, products: deletedProducts, count: deletecart.count, total: deletecart.total } 

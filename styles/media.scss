@@ -1,5 +1,246 @@
 @media screen and (max-width: 1300px) {
   .container {
-    max-width: 90%;
+    max-width: 96%;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .catalog {
+    .product {
+      width: calc(33% - 10px);
+    }
+  }
+  .products {
+    .product {
+      width: calc(25% - 10px);
+    }
+  }
+}
+
+@media screen and (max-width: 1080px) {
+  .header {
+    &__admin, &__info { display: none; }
+    &__burger, &__close {
+      display: block;
+    }
+    &__menu {
+      display: none;
+      &-mobile {
+        position: fixed;
+        z-index: 16;
+        top: 0;
+        left: 0;
+        height: 100%;
+        max-width: 100%;
+        width: 340px;
+        display: block;
+        background: $bg2;
+        border-right: 2px solid $main2;
+        padding: 80px 30px 30px 5%;
+        transform: translateX(-100%);
+        transition: .15s;
+        &.active {
+          transform: translateX(0);
+        }
+        .lr {
+          margin-top: 40px;
+          a {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 15px;
+            &:hover, &.active {
+              text-decoration: underline;
+              text-underline-offset: 2px;
+            }
+          }
+        }
+        li {
+          margin-bottom: 20px;
+          a {
+            font-size: 18px;
+            &:hover, &.active {
+              text-decoration: underline;
+              text-underline-offset: 2px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .catalog {
+    flex-direction: column;
+    &__filter {
+      display: none;
+    }
+  }
+  .products {
+    .product {
+      width: calc(33% - 10px);
+    }
+  }
+  .single-product {
+    &__info {
+      padding-top: 20px;
+      padding-right: 20px;
+    }
+    &__image {
+      height: 100%;
+      max-height: 100%;
+      max-width: 400px;
+    }
+    &__arrows {
+      right: auto;
+      left: 0;
+      .arrow {
+        height: 40px;
+        width: 40px;
+        svg {
+          height: 20px;
+        }
+      }
+    }
+  }
+  .comments {
+    &__flex {
+      flex-direction: column;
+    }
+    &__list {
+      width: 100%;
+      padding-right: 0;
+    }
+    .create-comment {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .products {
+    .product {
+      width: calc(50% - 10px);
+    }
+  }
+  .single-product {
+    flex-direction: column-reverse;
+    &__image {
+      height: 300px;
+      max-width: 300px;
+      margin-right: auto;
+    }
+    &__info {
+      padding-top: 30px;
+      padding-right: 0;
+      h1 {
+        font-size: 26px;
+      }
+    }
+  }
+  .personal-area {
+    &__content {
+      flex-direction: column-reverse;
+    }
+    &__form {
+      margin-right: 0;
+      margin-top: 20px;
+    }
+  }
+  .page {
+    h1 {
+      font-size: 28px !important;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    max-width: 96%;
+  }
+  .cart {
+    width: 100%;
+    padding-top: 38px;
+    &__items {
+      padding: 0 10px 0 10px;
+    }
+  }
+  .header {
+    padding: 10px 0;
+    margin-bottom: 30px;
+    &__menu-mobile {
+      width: 100%;
+      padding-left: 5%;
+    }
+    &__info svg {
+      height: 20px;
+    }
+    &__cart p, &__user p, &__logout  {
+      display: none;
+    }
+  }
+  .products {
+    .product {
+      min-width: 100px;
+      max-width: 300px;
+      width: calc(50% - 6px);
+      margin: 0 3px 15px;
+      flex: none;
+      &__name {
+        font-size: 14px;
+      }
+      &__price {
+        font-size: 16px;
+      }
+      &__image {
+        height: 250px;
+      }
+      &__add {
+        position: relative;
+        &.mobile {
+          .count {
+            bottom: 100%;
+            &__btn, &__wrap {
+              height: 35px;
+            }
+          }
+        }
+        .count {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          justify-content: space-between;
+          background: $bg;
+          border: 2px solid $accent;
+          z-index: 2;
+          transition: .2s;
+          &__btn, &__wrap {
+            border: none;
+            height: 28px;
+          }
+        }
+        .button {
+          margin-left: 0;
+          font-size: 14px;
+          min-height: 32px;
+          padding: 6px 10px;
+          z-index: 2;
+        }
+      }
+    }
+  }
+  .lr-form {
+    margin: 0 auto;
+    padding: 10px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .products {
+    .product {
+      &__image {
+        height: 200px;
+      }
+    }
   }
 }

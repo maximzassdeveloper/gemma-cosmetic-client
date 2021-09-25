@@ -1,5 +1,5 @@
 export { Product } from './Product/Product'
-export { SingleProduct } from './Product/SingleProduct'
+export { SingleProduct } from './SingleProduct/SingleProduct'
 export { Header } from './Header'
 export { Footer } from './Footer'
 export { ProductList } from './ProductList'
@@ -8,5 +8,6 @@ export { Loading } from './Loading'
 export { PersonalAreaForm } from './PersonalAreaForm'
 export { OrderList } from './OrderList'
 export { ProductFilter } from './ProductFilter'
+export { TagList } from './TagList'
 
 export { ActiveLink } from './ActiveLink'

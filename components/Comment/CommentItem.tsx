@@ -17,6 +17,12 @@ export const CommentItem: FC<CommentItemProps> = ({ comment }) => {
 
       <p className="comment__message">{comment.message}</p>
 
+      {!!comment.images?.length && <div className="comment__images">
+        {comment.images.map((i, index) =>
+          <div key={index+i} className="comment__image"><img src={i} alt='' /></div>
+        )}
+      </div>}
+
     </div>
   )
 }

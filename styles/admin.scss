@@ -2,7 +2,7 @@
   background: #fff;
   min-height: 100vh;
   * {
-    color: $admin-main;
+    // color: $admin-main;
   }
   &__wrapper {
     align-items: flex-start;
@@ -138,5 +138,15 @@
       font-size: 13px;
       p { display: block; }
     }
+  }
+}
+
+.create-tags {
+  .textarea {
+    max-width: 100%;
+    font-size: 18px;
+  }
+  .tags {
+    margin: 0 0 20px 0;
   }
 }

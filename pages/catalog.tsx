@@ -1,22 +1,18 @@
-import { useEffect } from 'react'
 import { GetServerSideProps, NextPage } from 'next'
 import { Container, Main } from '../components/hoc'
 import { ProductFilter, ProductList } from '../components'
-import { useActions } from '../hooks/useActions'
 import { IAttribute, ICategory, IProduct } from '../types/product'
 import { useRouter } from 'next/router'
-import axios from 'axios'
-import { Button } from '../components/generetic'
-import { SERVER_URL } from '../utils/config'
 import { fetchData } from '../services/dataService'
 
 interface CatalogProps {
   products: IProduct[]
   attributes: IAttribute[]
   categories: ICategory[]
+  activeFilters: { [key: string]: string[] }
 }
 
-const CatalogPage: NextPage<CatalogProps> = ({ products, attributes, categories }) => {
+const CatalogPage: NextPage<CatalogProps> = ({ activeFilters, products, attributes, categories }) => {
 
   const router = useRouter()
 
@@ -36,6 +32,7 @@ const CatalogPage: NextPage<CatalogProps> = ({ products, attributes, categories 
       <Container>
         <div className="catalog">
           <ProductFilter 
+            active={activeFilters}
             onChange={d => changeFilter(d)} 
             attributes={attributes} 
             categories={categories}
@@ -53,12 +50,19 @@ export default CatalogPage
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   let queryUrl = ''
-  if (query.attrs) queryUrl += `attrs=${query.attrs}&`
-  if (query.cats) queryUrl += `cats=${query.cats}`
+  const activeFilters: { [key: string]: string[] } = {}
+  if (query.attrs) {
+    queryUrl += `attrs=${query.attrs}&`
+    activeFilters.attrs = Array.isArray(query.attrs) ? query.attrs : [query.attrs]
+  }
+  if (query.cats) {
+    queryUrl += `cats=${query.cats}`
+    activeFilters.cats = Array.isArray(query.cats) ? query.cats : [query.cats]
+  }
 
   const products = await fetchData(`/products/?${queryUrl}`) || []
   const attributes = await fetchData(`/attributes`) || []
   const categories = await fetchData(`/categories`) || []
 
-  return { props: { products, attributes, categories } }
+  return { props: { activeFilters, products, attributes, categories } }
 }

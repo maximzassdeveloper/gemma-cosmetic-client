@@ -1,21 +1,30 @@
 import { NextPage } from 'next'
+import dynamic from 'next/dynamic'
 import { useForm } from 'react-hook-form'
 import { AdminMain } from '../../../components/hoc'
-import { CreateSidebar } from '../../../components/admin'
-import { CreateCategoryWidget, ProductAttributes } from '../../../components/admin/widgets'
-import { IAttribute } from '../../../types/product'
+import { CreateSidebar, MetaForm } from '../../../components/admin'
+import { CreateCategoryWidget, CreateTags, ProductAttributes } from '../../../components/admin/widgets'
+import { IProductAttribute } from '../../../types/product'
 import { Button, Input, Textarea, FileUpload } from '../../../components/generetic'
 import authAxios from '../../../services/axiosService'
+
+const Editor = dynamic(() => import('../../../components/generetic/Editor')
+  .then(m => m.Editor), { ssr: false })
 
 interface FormInputs {
   name: string
   slug?: string
   price: number
   shortDesc?: string
-  desc?: string
+  desc?: any
   categories?: string[]
-  attributes?: IAttribute[]
-  img?: File[]
+  attributes?: IProductAttribute[]
+  img: File[]
+  tags?: string[]
+  metaTitle?: string
+  metaDesc?: string
+  metaKeywords?: string
+  metaRobots?: string
 }
 
 const CreateProductPage: NextPage = () => {
@@ -31,17 +40,27 @@ const CreateProductPage: NextPage = () => {
     const formData = new FormData()
     formData.append('name', data.name)
     formData.append('slug', data.slug || '')
+    formData.append('metaDesc', data.metaDesc || '')
+    formData.append('metaTitle', data.metaTitle || '')
+    formData.append('metaKeywords', data.metaKeywords || '')
+    formData.append('metaRobots', data.metaRobots || '')
     formData.append('price', data.price.toString())
-    formData.append('desc', data.desc || '')
+    formData.append('desc', JSON.stringify(data.desc) || '')
+    formData.append('tags', JSON.stringify(data.tags || []))
     formData.append('shortDesc', data.shortDesc || '')
-    formData.append('categories', data.categories?.join(',') || '')
-    formData.append('attributes', JSON.stringify(data.attributes))
+    if (data.categories) {
+      formData.append('categories', data.categories.join(',') || '')
+    }
+    if (data.attributes) {
+      formData.append('attributes', data.attributes.reduce((t, x, i, a) => {
+        return t + String(x.id) + (i === a.length-1 ? '' : ',')
+      }, ''))
+    }
     if (data.img) {
       data.img.forEach((i, index) => formData.append(`img${index}`, i))
     }
 
     await authAxios.post(`/products/create`, formData)
-    console.log(data)
   })
 
   return (
@@ -66,11 +85,7 @@ const CreateProductPage: NextPage = () => {
           rules={{ required: true }}
           placeholder='Цена'
         />
-        <Textarea 
-          name='desc'
-          register={register}
-          placeholder='Описание товара'
-        />
+        <Editor onChange={d => setValue('desc', d)} />
         <Textarea 
           name='shortDesc'
           register={register}
@@ -81,6 +96,9 @@ const CreateProductPage: NextPage = () => {
           name='newproduct-image' 
           multiple 
         />
+        <CreateTags 
+          onChange={t => setValue('tags', t)}
+        />
         <Button type='submit'>Создать</Button>
       </form>
 
@@ -88,7 +106,11 @@ const CreateProductPage: NextPage = () => {
         <CreateCategoryWidget 
           onChange={a => setValue('categories', a)}
         />  
-        <ProductAttributes />
+        <ProductAttributes 
+          // attributes={product.attribute_values}
+          onChange={d => setValue('attributes', d)} 
+        />
+        <MetaForm register={register} />
       </CreateSidebar>
 
     </AdminMain>

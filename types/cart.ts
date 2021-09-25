@@ -27,7 +27,7 @@ export interface CartState {
 export enum CartActionTypes {
   GET_CART = 'GET_CART',
   ADD_PRODUCT = 'ADD_PRODUCT',
-  DELETE_PRODUCT = 'DELETE_PRODUCT',
+  DELETE_CART_PRODUCT = 'DELETE_CART_PRODUCT',
   UPDATE_COUNT = 'UPDATE_COUNT',
   SET_ACTIVE = 'SET_ACTIVE',
   CLEAR_CART = 'CLEAR_CART'
@@ -44,7 +44,7 @@ export interface AddCartProductAction {
 }
 
 export interface DeleteCartProductAction {
-  type: CartActionTypes.DELETE_PRODUCT,
+  type: CartActionTypes.DELETE_CART_PRODUCT,
   payload: number
 }
 

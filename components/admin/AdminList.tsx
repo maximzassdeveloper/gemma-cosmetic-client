@@ -7,6 +7,7 @@ interface AdminListProps {
   items: any[]
   link: string
   linkOption: string
+  onDelete?: (id: number) => void
 }
 
 interface ListItemProps {
@@ -34,7 +35,7 @@ const ListItem: FC<ListItemProps> = ({ tag = 'th', className, children, link }) 
   </>
 }
 
-export const AdminList: FC<AdminListProps> = ({ options, items, link, linkOption }) => {
+export const AdminList: FC<AdminListProps> = ({ options, items, link, linkOption, onDelete }) => {
   return (
     <div className="admin__list list">
       <table>
@@ -66,6 +67,9 @@ export const AdminList: FC<AdminListProps> = ({ options, items, link, linkOption
                 <p>Обновлено {new Date(i.updatedAt).toLocaleDateString()}</p>
                 <p>Опубликовано {new Date(i.createdAt).toLocaleDateString()}</p>
               </ListItem>
+              {onDelete && <ListItem tag='td'>
+                <button onClick={() => onDelete(i.id)}>Удалить</button>
+              </ListItem>}
             </tr>
           )}
         </tbody>

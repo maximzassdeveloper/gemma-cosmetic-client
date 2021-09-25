@@ -4,6 +4,8 @@ import { AdminMain } from '../../../components/hoc'
 import { AdminList } from '../../../components/admin'
 import authAxios from '../../../services/axiosService'
 import { IProduct } from '../../../types/product'
+import { useActions } from '../../../hooks/useActions'
+import { useTypesSelector } from '../../../hooks/useTypedSelector'
 
 const options = [
   { name: 'id', slug: 'id' },
@@ -14,14 +16,11 @@ const options = [
 
 const ProductsPage: NextPage = () => {
 
-  const [products, setProducts] = useState<IProduct[]>([])
+  const { deleteProduct, getProducts } = useActions()
+  const { products } = useTypesSelector(state => state.product)
 
   useEffect(() => {
-    const getData = async () => {
-      const { data } = await authAxios.get('/products')
-      setProducts(data)
-    }
-    getData()
+    getProducts()
   }, [])
 
   return (
@@ -31,6 +30,7 @@ const ProductsPage: NextPage = () => {
         linkOption={'slug'} 
         items={products} 
         options={options} 
+        onDelete={id => deleteProduct(id)}
       />
     </AdminMain>
   )

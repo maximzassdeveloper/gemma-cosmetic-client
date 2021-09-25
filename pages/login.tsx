@@ -21,13 +21,17 @@ const Login: NextPage = () => {
   const { loading, error } = useTypesSelector(state => state.user)
   const { register, handleSubmit, formState: { errors, touchedFields, isSubmitted } } = useForm<LoginInputs>()
   const router = useRouter()
+  const [btnText, setBtnText] = React.useState('Отправить')
 
   const onSubmit = handleSubmit(data => {
     login(data)
   })
 
   React.useEffect(() => {
-    if (!error && !loading && isSubmitted) router.push('/')
+    if (!error && !loading && isSubmitted) {
+      setBtnText('Успешно')
+      router.push('/')
+    }
   }, [error, loading])
   
   return (
@@ -64,8 +68,7 @@ const Login: NextPage = () => {
               loading={loading} 
               type='submit'
             >
-              {(loading || !isSubmitted || error) && 'Отправить'}
-              {!loading && isSubmitted && !error && 'Успешно'}
+              {btnText}
             </Button>
             {!!error && <p className="lr-form__error">{error}</p>}
           </form>

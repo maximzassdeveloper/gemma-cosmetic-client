@@ -11,6 +11,8 @@ export interface IComment {
   rating: number
   userId: number
   productId: number
+  images?: string[]
+  videos?: string[]
 }
 
 export interface IAttribute {
@@ -41,11 +43,16 @@ export interface IProduct {
   slug: string
   price: number
   shortDesc?: string
-  desc?: string
+  desc?: any
   images: string[]
   categories?: ICategory[]
   attribute_values?: IProductAttribute[]
   comments?: IComment[]
+  tags?: string[]
+  metaTitle?: string
+  metaDesc?: string
+  metaRobots?: string
+  metaKeywords?: string
 }
 
 

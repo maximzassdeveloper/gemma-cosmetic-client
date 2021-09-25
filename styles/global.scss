@@ -82,6 +82,10 @@ a {
   text-decoration: none;
 }
 
+mark {
+  background-color: #eee395;
+}
+
 .wrapper {
   min-height: 100vh;
   display: flex;
@@ -92,7 +96,14 @@ a {
 }
 
 .page {
+  max-width: 100%;
+  margin: 0 auto;
+  &.notfull {
+    max-width: 800px;
+  }
   h1 {
+    font-size: 36px;
+    font-weight: 400;
     margin-bottom: 30px;
   }
 }

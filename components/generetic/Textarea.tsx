@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, memo } from 'react'
 import { FieldError, UseFormRegister } from 'react-hook-form'
 import classnames from '../../utils/classnames'
 import { useTransition, animated } from '@react-spring/web'
@@ -14,20 +14,23 @@ export interface InputValidateRules {
 }
 
 interface TextareaProps {
-  register: UseFormRegister<any>
+  register?: UseFormRegister<any>
   error?: FieldError | undefined
   touched?: boolean
   rules?: InputValidateRules
 
   name: string
+  value?: string
   className?: string
   placeholder?: string
   autoComplete?: 'off' | 'on'
   style?: React.CSSProperties
+
+  onChange?: React.ChangeEventHandler<HTMLTextAreaElement>
 }
 
-export const Textarea: FC<TextareaProps> = ({ 
-  register, error, touched, rules, name, className, placeholder, autoComplete, style
+export const Textarea: FC<TextareaProps> = memo(({ 
+  register, error, touched, rules, name, className, placeholder, autoComplete, style, value, onChange
 }) => {
   const classes = classnames(
     'input textarea', 
@@ -46,12 +49,21 @@ export const Textarea: FC<TextareaProps> = ({
   
   return (
     <div className={classes}>
-      <textarea 
-        {...register(name, {...rules})}
-        placeholder={placeholder}
-        autoComplete={autoComplete || 'off'}
-        style={style}
-      />
+      {register 
+        ? <textarea 
+          {...register(name, {...rules})}
+          placeholder={placeholder}
+          autoComplete={autoComplete || 'off'}
+          style={style}
+        />
+        : <textarea 
+          onChange={onChange}
+          value={value || ''}
+          placeholder={placeholder}
+          autoComplete={autoComplete || 'off'}
+          style={style}
+        />
+      }
 
       {errorTransition((styles, item) => 
         touched && item && (
@@ -60,4 +72,4 @@ export const Textarea: FC<TextareaProps> = ({
       )}
     </div>
   )
-}
+})

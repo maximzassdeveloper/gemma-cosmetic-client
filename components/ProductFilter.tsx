@@ -4,6 +4,7 @@ import { IAttribute, ICategory } from '../types/product'
 interface ProductFilterProps {
   attributes: IAttribute[]
   categories: ICategory[]
+  active?: { attrs?: [], cats?: [] }
   onChange?: (options: { cats: string[], attrs: string[] }) => void
 }
 
@@ -22,33 +23,23 @@ export const ProductFilterItem: FC<ItemProps> = ({ children, name }) => {
   )
 }
 
-export const ProductFilter: FC<ProductFilterProps> = ({ attributes, categories, onChange }) => {
+export const ProductFilter: FC<ProductFilterProps> = ({ active, attributes, categories, onChange }) => {
 
-  const [attrs, setAttrs] = useState<string[]>([])
-  const [cats, setCats] = useState<string[]>([])
+  const [attrs, setAttrs] = useState<string[]>(active?.attrs || [])
+  const [cats, setCats] = useState<string[]>(active?.cats || [])
 
   useEffect(() => {
     if (onChange) onChange({ attrs, cats })
   }, [attrs, cats])
 
   const addAttrHandler = (e: React.MouseEvent<HTMLDivElement>, slug: string) => {
-    if (attrs.includes(slug)) {
-      setAttrs(attrs.filter(x => x !== slug))
-      e.currentTarget.classList.remove('active')
-    } else {
-      setAttrs([...attrs, slug])
-      e.currentTarget.classList.add('active')
-    }
+    if (attrs.includes(slug)) setAttrs(attrs.filter(x => x !== slug))
+    else setAttrs([...attrs, slug])
   }
 
   const addCatHandler = (e: React.MouseEvent<HTMLDivElement>, slug: string) => {
-    if (cats.includes(slug)) {
-      setCats(cats.filter(x => x !== slug))
-      e.currentTarget.classList.remove('active')
-    } else {
-      setCats([...cats, slug])
-      e.currentTarget.classList.add('active')
-    }
+    if (cats.includes(slug)) setCats(cats.filter(x => x !== slug))
+    else setCats([...cats, slug])
   }
 
   return (
@@ -60,7 +51,7 @@ export const ProductFilter: FC<ProductFilterProps> = ({ attributes, categories, 
           <div 
             key={cat.id} 
             onClick={e => addCatHandler(e, cat.slug)}
-            className="option">
+            className={`option${cats.includes(cat.slug) ? ' active' : ''}`}>
             {cat.name}
           </div>
         )}
@@ -72,7 +63,7 @@ export const ProductFilter: FC<ProductFilterProps> = ({ attributes, categories, 
             <div 
               key={i.id} 
               onClick={e => addAttrHandler(e, i.slug)}
-              className="option">
+              className={`option${attrs.includes(i.slug) ? ' active' : ''}`}>
               {i.name}
             </div>
           )}

@@ -8,6 +8,7 @@
   margin-bottom: 40px;
   border-bottom: 2px solid $main2;
   .container {
+    height: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -18,11 +19,23 @@
       align-items: center;
       li {
         margin-right: 20px;
-        a:hover { text-decoration: underline; text-underline-offset: 2px; }  
+        a:hover, a.active { 
+          text-decoration: underline; 
+          text-underline-offset: 2px; 
+        }  
       }
+    }
+    &-mobile {
+      display: none;
     }
   }
   &__info {
+    display: flex;
+    align-items: center;
+    svg {
+      height: 18px;
+      margin-right: 5px;
+    }
     a, span {
       margin-left: 20px;
       font-size: 16px;
@@ -30,6 +43,21 @@
       &:hover {
         opacity: .7;
       }
+    }
+  }
+  &__cart, &__user, &__logout {
+    display: flex;
+    align-items: center;
+  }
+  &__cart p {
+    margin-right: 5px;
+  }
+  &__burger, &__close {
+    display: none;
+    cursor: pointer;
+    height: 20px;
+    svg {
+      height: 20px;
     }
   }
 }
@@ -56,6 +84,9 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    &:hover {
+      background: rgba($accent, .1);
+    }
   }
   &__wrap {
     width: $width;
@@ -147,9 +178,36 @@
   }
 }
 
+.no-comments {
+  margin-bottom: 20px;
+}
+
 .create-comment {
   width: 40%;
   max-width: 100%;
+  .fileupload {
+    &__upload, &__item {
+      height: 70px;
+      width: 70px;
+      background: none;
+      border: 1.5px solid $accent;
+      border-radius: 0;
+    }
+    .item {
+      background: none;
+      margin-right: 10px;
+    }
+    &__upload:hover {
+      background: rgba($accent, .1);
+    }
+    svg {
+      height: 20px;
+      stroke: $accent;
+    }
+  }
+  .textarea {
+    margin-bottom: 10px;
+  }
   .create-rating {
     position: relative;
     margin-bottom: 10px;
@@ -167,9 +225,6 @@
       cursor: pointer;
       margin-right: 5px;
       transform-origin: center;
-      &.fill {
-        transform: scale(1.1);
-      }
     }
   }
   h3 {
@@ -200,6 +255,27 @@
     font-size: 14px;
     line-height: 1.4em;
   }
+  &__images {
+    margin-top: 10px;
+    display: flex;
+  }
+  &__image {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    margin-right: 10px;
+    cursor: pointer;
+    &:hover {
+      border: 1.5px solid $accent;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      object-fit: cover;
+    }
+  }
 }
 
 .personal-area {
@@ -209,6 +285,7 @@
   }
   &__form {
     flex: 1 1 50%;
+    margin-right: 15px;
   }
   .order-list {
     flex: 1 1 50%;
@@ -248,7 +325,7 @@
   align-items: flex-start;
   &__filter {
     min-width: 220px;
-    margin-right: 30px;
+    margin-right: 10px;
     background: $bg2;
     padding: 20px 10px;
   }
@@ -286,8 +363,29 @@
   }
 }
 
-@media screen and (max-width: 1200px) {
-  :root {
-    --columns: 4;
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 30px 0;
+  & .tag {
+    border: 1px solid $accent;
+    padding: 5px 8px;
+    margin: 0 2.5px 5px;
+    line-height: 1em;
+    // flex: 1 1 auto;
+  }
+}
+
+.page404 {
+  max-width: 400px;
+  margin: 0 auto;
+  h1 {
+    text-align: center;
+    font-size: 150px;
+    margin-bottom: 20px;
+  }
+  p {
+    text-align: center;
   }
 }

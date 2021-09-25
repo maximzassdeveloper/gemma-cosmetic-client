@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import { X } from 'react-feather'
+import Link from 'next/link'
 import { useActions } from '../../hooks/useActions'
 import { ICartProduct } from '../../types/cart'
 import { ChangeCount, Price } from '../Product'
@@ -23,10 +24,12 @@ export const CartItem: FC<CartItemProps> = ({ product }) => {
   return (
     <div className="cart-item">
       <div className="cart-item__image">
-        <img src={product.image} alt="" />
+        <Link href={`/product/${product.slug}`}>
+          <img src={product.image} alt={product.name} />
+        </Link>
       </div>
       <div className="cart-item__name">
-        {product.name}
+        <Link href={`/product/${product.slug}`}>{product.name}</Link>
         <X 
           className="cart-item__delete" 
           onClick={deleteHandler}
