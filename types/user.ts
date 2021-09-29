@@ -46,6 +46,8 @@ export enum UserActionsTypes {
   LOGIN = 'LOGIN',
   LOGIN_SUCCESS = 'LOGIN_SUCCESS',
   LOGIN_ERROR = 'LOGIN_ERROR',
+
+  CLEAN_ERROR = 'CLEAN_ERROR',
   
   LOGOUT = 'LOGOUT',
   REFRESH = 'REFRESH',
@@ -64,6 +66,10 @@ export interface RegisterSuccessAction {
 export interface RegisterErrorAction {
   type: UserActionsTypes.REGISTER_ERROR
   payload: string
+}
+
+export interface CleanErrorAction {
+  type: UserActionsTypes.CLEAN_ERROR
 }
 
 export interface LoginAction {
@@ -91,6 +97,7 @@ export type UserAction =
   RegisterAction
   | RegisterSuccessAction
   | RegisterErrorAction
+  | CleanErrorAction
   | LoginAction
   | LoginSuccessAction
   | LoginErrorAction

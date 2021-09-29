@@ -11,7 +11,7 @@ interface CartItemProps {
 
 export const CartItem: FC<CartItemProps> = ({ product }) => {
 
-  const { updateCartProduct, deleteCartProduct } = useActions()
+  const { updateCartProduct, deleteCartProduct, setActiveCart } = useActions()
 
   const changeCount = (count: number) => {
     updateCartProduct(product.slug, count)
@@ -23,13 +23,15 @@ export const CartItem: FC<CartItemProps> = ({ product }) => {
 
   return (
     <div className="cart-item">
-      <div className="cart-item__image">
+      <div onClick={() => setActiveCart(false)} className="cart-item__image">
         <Link href={`/product/${product.slug}`}>
           <img src={product.image} alt={product.name} />
         </Link>
       </div>
       <div className="cart-item__name">
-        <Link href={`/product/${product.slug}`}>{product.name}</Link>
+        <Link href={`/product/${product.slug}`}>
+          <span onClick={() => setActiveCart(false)}>{product.name}</span>
+        </Link>
         <X 
           className="cart-item__delete" 
           onClick={deleteHandler}

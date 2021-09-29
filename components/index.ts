@@ -9,5 +9,7 @@ export { PersonalAreaForm } from './PersonalAreaForm'
 export { OrderList } from './OrderList'
 export { ProductFilter } from './ProductFilter'
 export { TagList } from './TagList'
+export { ImagePopup } from './ImagePopup'
+export { ProductSearch } from './ProductSearch'
 
 export { ActiveLink } from './ActiveLink'

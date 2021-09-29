@@ -32,6 +32,12 @@ export const login = (loginData: ILoginData) => {
   }
 }
 
+export const cleanError = () => {
+  return (dispatch: Dispatch<UserAction>) => {
+    dispatch({ type: UserActionsTypes.CLEAN_ERROR})
+  }
+}
+
 export const refresh = () => {
   return async (dispatch: Dispatch<UserAction>) => {
     try {

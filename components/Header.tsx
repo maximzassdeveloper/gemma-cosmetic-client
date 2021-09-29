@@ -1,21 +1,19 @@
 import { FC, useState, useEffect } from 'react'
 import Link from 'next/link'
-import { ShoppingCart, User, LogOut, Menu, X } from 'react-feather'
+import { ShoppingCart, User, Menu, X } from 'react-feather'
 import { Container } from './hoc'
 import { Cart } from './Cart/Cart'
 import { useActions } from '../hooks/useActions'
 import { useTypesSelector } from '../hooks/useTypedSelector'
-import { IPage } from '../types/page'
-import authAxios from '../services/axiosService'
 import { ActiveLink } from '.'
 
 export const Header: FC = () => {
 
-  const { setActiveCart, clearCart, logout } = useActions()
+  const { setActiveCart, clearCart, logout, getPages } = useActions()
   const { active, count } = useTypesSelector(state => state.cart)
   const { isAuth, user } = useTypesSelector(state => state.user)
+  const { pages } = useTypesSelector(state => state.page)
   const [menuActive, setMenuActive] = useState(false)
-  const [pages, setPages] = useState<IPage[]>([])
 
   const logoutHandler = () => {
     logout()
@@ -23,12 +21,6 @@ export const Header: FC = () => {
   }
 
   useEffect(() => { 
-    const getPages = async () => {
-      try {
-        const { data } = await authAxios.get('/pages')
-        setPages(data)
-      } catch(e) { console.log(e) }
-    }
     getPages()
   }, [])
 
@@ -85,10 +77,10 @@ export const Header: FC = () => {
               </ActiveLink>
               <span onClick={logoutHandler} className="header__logout">Выход</span>
             </>
-            : <>
+            : <div className="moile-none">
               <ActiveLink href='/register'>Регистрация</ActiveLink>
               <ActiveLink href='/login'>Вход</ActiveLink>
-            </>
+            </div>
           }
         </div>
 

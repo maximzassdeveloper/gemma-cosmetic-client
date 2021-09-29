@@ -1,10 +1,10 @@
 import React, { FC, useState } from 'react'
-import { FieldError, UseFormRegister } from 'react-hook-form'
-import classnames from '../../utils/classnames'
-import { useTransition, animated } from '@react-spring/web'
+import { UseFormRegister, FieldError } from 'react-hook-form'
 import { CSSTransition } from 'react-transition-group'
-import { Eye, EyeOff } from 'react-feather'
+import { EyeOff, Eye, X } from 'react-feather'
+import { useTransition, animated } from '@react-spring/web'
 import { renderError } from '../../utils/validation'
+import classnames from '../../utils/classnames'
 
 export interface InputValidateRules {
   required?: boolean | string
@@ -16,35 +16,43 @@ export interface InputValidateRules {
 }
 
 interface InputProps {
-  register?: UseFormRegister<any>
-  error?: FieldError | undefined
-  touched?: boolean
-  rules?: InputValidateRules
-
   name: string
   type?: string
-  value?: string
-  className?: string
   placeholder?: string
-  autoComplete?: 'off' | 'on'
-  style?: React.CSSProperties
+  value?: string
+  disabled?: boolean
+  autoComplete?: 'on' | 'off'
+  className?: string
+
+  register?: UseFormRegister<any>
+  touched?: boolean
+  error?: FieldError | undefined
+  rules?: InputValidateRules
+
   onChange?: React.ChangeEventHandler<HTMLInputElement>
+  onClick?: React.MouseEventHandler<HTMLInputElement>
+  onBlur?: React.FocusEventHandler<HTMLInputElement>
+  onFocus?: React.FocusEventHandler<HTMLInputElement>
 }
 
-export const Input: FC<InputProps> = ({ 
-  register, error, touched, rules, name, type, className, placeholder, autoComplete, style, value,  onChange
+export const Input: FC<InputProps> = ({
+  name, type, placeholder, value, disabled, autoComplete, className, register, touched, error, rules, onChange, onClick, onFocus, onBlur
 }) => {
 
-  const [password, setPassword] = useState<boolean | null>(type === 'password' || null)
+  const [val, setVal] = useState('')
+  const [ownType, setOwnType] = useState(type || 'text')
 
-  const classes = classnames(
-    'input', 
-    className, 
-    { 'password': type === 'password' },
-    { 'error': touched && error },
-    { 'success': touched && !error },
-    { 'required': rules?.required }
-  )
+  const inp = React.useRef<HTMLInputElement>(null)
+
+  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setVal(e.target.value)
+    console.log(e)
+    if (onChange) onChange(e)
+  }
+
+  const blurHandler = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (onBlur) onBlur(e)
+  }
 
   const errorTransition = useTransition(error, {
     from: { transform: 'translateY(-18px)', opacity: 0 },
@@ -52,32 +60,49 @@ export const Input: FC<InputProps> = ({
     leave: { transform: 'translateY(-18px)', opacity: 0 },
     config: { duration: 150 },
   })
-  
+
+  const classes = classnames(
+    'input',
+    className,
+    { 'password': type === 'password' },
+    { 'disabled': disabled } ,
+    { 'required': rules?.required },
+    { 'error': error && touched },
+    { 'success': !error && touched },
+  )
+
   return (
     <div className={classes}>
-      {register
+      {register 
         ? <input 
-          {...register(name, {...rules})}
-          type={password === null ? type || 'text' : password ? type : 'text'}
-          placeholder={placeholder}
-          autoComplete={autoComplete || 'off'}
-          style={style}
-        />
+            {...register(name, {...rules})}
+            type={ownType}
+            placeholder={placeholder}
+            disabled={disabled}
+            autoComplete={autoComplete}
+          />
         : <input 
-          onChange={onChange}
-          value={value || ''}
-          type={password === null ? type || 'text' : password ? type : 'text'}
-          placeholder={placeholder}
-          autoComplete={autoComplete || 'off'}
-          style={style}
-        />
+            ref={inp}
+
+            name={name}
+            value={value || val}
+            type={ownType}
+            placeholder={placeholder}
+            disabled={disabled}
+            autoComplete={autoComplete}
+
+            onChange={changeHandler}
+            onClick={onClick}
+            onFocus={onFocus}
+            onBlur={blurHandler}
+          />
       }
 
-      <CSSTransition in={password !== null && password} timeout={100} mountOnEnter unmountOnExit>
-        <EyeOff onClick={() => setPassword(false)} className="input__icon password" />
+      <CSSTransition in={ownType === 'password'} timeout={100} mountOnEnter unmountOnExit>
+        <EyeOff onClick={() => setOwnType('text')} className="input__icon password" />
       </CSSTransition>
-      <CSSTransition in={password !== null && !password} timeout={100} mountOnEnter unmountOnExit>
-        <Eye onClick={() => setPassword(true)} className="input__icon password" />
+      <CSSTransition in={ownType === 'text' && type === 'password'} timeout={100} mountOnEnter unmountOnExit>
+        <Eye onClick={() => setOwnType('password')} className="input__icon password" />
       </CSSTransition>
 
       {errorTransition((styles, item) => 

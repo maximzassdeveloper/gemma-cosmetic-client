@@ -19,18 +19,26 @@ interface RegisterInputs {
 
 const Register: NextPage = () => {
 
-  const { register: registerFunc } = useActions()
+  const { register: registerFunc, cleanError } = useActions()
   const { loading, error } = useTypesSelector(state => state.user)
   const { register, handleSubmit, formState: { errors, touchedFields, isSubmitted } } = useForm<RegisterInputs>()
   const router = useRouter()
+  const [btnText, setBtnText] = React.useState('Отправить')
 
   const onSubmit = handleSubmit(data => {
     registerFunc(data)
   })
 
   React.useEffect(() => {
-    if (!error && !loading && isSubmitted) router.push('/')
+    if (!error && !loading && isSubmitted) {
+      setBtnText('Успешно')
+      router.push('/')
+    }
   }, [error, loading])
+
+  React.useEffect(() => {
+    cleanError()
+  }, [])
   
   return (
     <Main title={'Регистрация'}>
@@ -79,8 +87,7 @@ const Register: NextPage = () => {
               loading={loading} 
               type='submit'
             >
-              {(loading || !isSubmitted || error) && 'Отправить'}
-              {!loading && isSubmitted && !error && 'Успешно'}
+              {btnText}
             </Button>
             {!!error && <p className="lr-form__error">{error}</p>}
           </form>

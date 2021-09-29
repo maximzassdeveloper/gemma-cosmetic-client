@@ -17,7 +17,7 @@ interface LoginInputs {
 
 const Login: NextPage = () => {
 
-  const { login } = useActions()
+  const { login, cleanError } = useActions()
   const { loading, error } = useTypesSelector(state => state.user)
   const { register, handleSubmit, formState: { errors, touchedFields, isSubmitted } } = useForm<LoginInputs>()
   const router = useRouter()
@@ -33,6 +33,10 @@ const Login: NextPage = () => {
       router.push('/')
     }
   }, [error, loading])
+
+  React.useEffect(() => {
+    cleanError()
+  }, [])
   
   return (
     <Main title={'Авторизация'}>

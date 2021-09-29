@@ -14,6 +14,8 @@ export const ChangeCount: FC<Props> = ({ startCount, max = 10, min = 1, classNam
 
   const [count, setCount] = useState(startCount)
   const [up, setUp] = useState(true)
+  const [disableDec, setDisableDec] = useState(false)
+  const [disableInc, setDisableInc] = useState(false)
 
   useEffect(() => {
     if (count !== startCount) {
@@ -21,10 +23,20 @@ export const ChangeCount: FC<Props> = ({ startCount, max = 10, min = 1, classNam
     }
   }, [startCount])
 
+  const timeout = () => {
+    setDisableDec(true)
+    setDisableInc(true)
+    setTimeout(() => {
+      setDisableDec(false)
+      setDisableInc(false)
+    }, 600)
+  }
+
   const increment = () => {
     if (count+1 <= max) {
       setCount(count + 1)
       setUp(true)
+      timeout()
     }
   }
 
@@ -32,6 +44,7 @@ export const ChangeCount: FC<Props> = ({ startCount, max = 10, min = 1, classNam
     if (count-1 >= min) {
       setCount(count - 1)
       setUp(false)
+      timeout()
     }
   }
 
@@ -48,10 +61,11 @@ export const ChangeCount: FC<Props> = ({ startCount, max = 10, min = 1, classNam
 
   return (
     <div className={`count ${className || ''}`.trim()}>
-      <div 
+      <button 
+        disabled={disableInc}
         onClick={increment} 
-        className={classnames('count__btn', 'count__inc', { 'disabled': count >= max })}
-      >+</div>
+        className={classnames('count__btn', 'count__inc')}
+      >+</button>
 
       <div className="count__wrap">
         {transition((style, item) =>
@@ -59,10 +73,11 @@ export const ChangeCount: FC<Props> = ({ startCount, max = 10, min = 1, classNam
         )}
       </div>
 
-      <div 
+      <button 
+        disabled={disableDec}
         onClick={decrement} 
-        className={classnames('count__btn', 'count__decr', { 'disabled': count <= min })}
-      >-</div>
+        className={classnames('count__btn', 'count__decr')}
+      >-</button>
     </div>
   )
 }

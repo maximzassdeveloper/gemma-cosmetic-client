@@ -9,9 +9,6 @@ interface Props {
 }
 
 const SingleProductPage: NextPage<Props> =({ product }) => {
-
-  console.log(product)
-
   return (
     <Main 
       title={product.metaTitle || product.name}

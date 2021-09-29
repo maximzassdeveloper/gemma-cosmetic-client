@@ -1,6 +1,7 @@
+import { useState } from 'react'
 import { GetServerSideProps, NextPage } from 'next'
 import { Container, Main } from '../components/hoc'
-import { ProductFilter, ProductList } from '../components'
+import { ProductFilter, ProductList, ProductSearch } from '../components'
 import { IAttribute, ICategory, IProduct } from '../types/product'
 import { useRouter } from 'next/router'
 import { fetchData } from '../services/dataService'
@@ -12,9 +13,12 @@ interface CatalogProps {
   activeFilters: { [key: string]: string[] }
 }
 
-const CatalogPage: NextPage<CatalogProps> = ({ activeFilters, products, attributes, categories }) => {
+const CatalogPage: NextPage<CatalogProps> = ({ 
+  activeFilters, products: iProducts, attributes, categories 
+}) => {
 
   const router = useRouter()
+  const [products, setProducts] = useState(iProducts || [])
 
   const changeFilter = ({ attrs, cats }: { cats: string[], attrs: string[] }) => {
     if (!attrs.length && !cats.length) {
@@ -37,10 +41,16 @@ const CatalogPage: NextPage<CatalogProps> = ({ activeFilters, products, attribut
             attributes={attributes} 
             categories={categories}
           />
-          <ProductList 
-            products={products}
-            loading={false}
-          />
+          <div className="catalog__products">
+            <ProductSearch
+              products={products}
+              onChange={p => setProducts(p)}
+            />
+            <ProductList 
+              products={products}
+              loading={false}
+            />
+          </div>
         </div>
       </Container>
     </Main>

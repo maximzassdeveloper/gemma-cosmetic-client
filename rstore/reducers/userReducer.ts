@@ -23,6 +23,9 @@ export const userReducer = (state = initialState, action: UserAction): UserState
     case UserActionsTypes.LOGIN_ERROR:
       return { ...state, loading: false, error: action.payload }
 
+    case UserActionsTypes.CLEAN_ERROR:
+      return { ...state, error: '' }
+
     case UserActionsTypes.REFRESH:
       return { ...state, user: action.payload.user, isAuth: true, error: '' }
     case UserActionsTypes.LOGOUT:

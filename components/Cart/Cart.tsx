@@ -1,21 +1,40 @@
-import { FC, useEffect } from 'react'
+import { FC, useState, useEffect, memo } from 'react'
 import { X } from 'react-feather'
 import classnames from '../../utils/classnames'
 
 import { CartItem } from './CartItem'
 import { CartCheckout } from './CartCheckout'
+import { CartOffer } from './CartOffer'
 import { useActions } from '../../hooks/useActions'
 import { useTypesSelector } from '../../hooks/useTypedSelector'
+import { getRandomFromArray } from '../../utils/helper'
 
-export const Cart: FC = () => {
+export const Cart: FC = memo(() => {
 
-  const { getCart, setActiveCart } = useActions()
+  const { getCart, setActiveCart, getProducts } = useActions()
   const { total, active, count, products } = useTypesSelector(state => state.cart)
+  const { products: pproducts } = useTypesSelector(state => state.product)
   const { isAuth } = useTypesSelector(state => state.user)
+  const [offetProducts, setOfferProducts] = useState([])
 
   useEffect(() => {
     getCart()
   }, [isAuth])
+
+  useEffect(() => {
+    getProducts()
+  }, [])
+  
+  useEffect(() => {
+    if (pproducts?.length) {
+      const arr = pproducts.filter(pr => {
+        let bool = true
+        products.forEach(x => x.slug === pr.slug ? bool =  false : null)
+        return bool
+      })
+      setOfferProducts(getRandomFromArray(arr, 3))
+    }
+  }, [pproducts, products])
 
   useEffect(() => {
     if (!active) return
@@ -34,7 +53,7 @@ export const Cart: FC = () => {
   }, [active])
 
   return (
-    <div className={classnames('cart', { 'active': active })}>
+    <div className={classnames('cart', { 'active': active, 'cart--offer': !!offetProducts.length })}>
 
       <div className="cart__header">
         <h3>Корзина</h3>
@@ -53,8 +72,10 @@ export const Cart: FC = () => {
         )}
       </div>
 
+      <CartOffer products={offetProducts} />
+
       <CartCheckout count={count} total={total} />
 
     </div>
   )
-}
+})

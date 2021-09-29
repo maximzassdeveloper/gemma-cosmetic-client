@@ -1,14 +1,13 @@
 import { FC, useState } from 'react'
-import editorParser from 'editorjs-html'
-import htmlParser from 'html-react-parser'
 import { IComment, IProduct } from '../../types/product'
 import { Price, AddToCart } from '../Product'
 import { CommentList } from '../Comment/CommentList'
-import { Rating } from '../Product/Rating'
+import { Rating } from '../Comment/Rating'
 import { SingleProductImages } from './SingleProductImages'
 import { AttributeList } from './AttributeList'
 import { CategoryList } from './CategoryList'
 import { TagList } from '../'
+import { editorRender } from '../../utils/helper'
 
 interface SingleProductProps {
   product: IProduct
@@ -23,19 +22,6 @@ export const SingleProduct: FC<SingleProductProps> = ({ product }) => {
     
     const rate = comments.reduce((t, i) => t + i.rating, 0)
     return Math.floor(rate / comments.length)
-  }
-
-
-  const renderDesc = () => {
-    if (product.desc) {
-      try {
-        const edjsParser = editorParser()
-        const html = edjsParser.parse(JSON.parse(product.desc))
-        return htmlParser(html.join(''))
-      } catch(e) {
-        console.log(e)
-      }
-    }
   }
 
   return (
@@ -57,7 +43,7 @@ export const SingleProduct: FC<SingleProductProps> = ({ product }) => {
 
       </div>
       {product.desc && <div className="single-product__desc editor-styles">
-        {renderDesc()}
+        {editorRender(product.desc)}
       </div>}
       <CommentList 
         productId={product.id} 
