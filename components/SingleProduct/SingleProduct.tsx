@@ -24,6 +24,8 @@ export const SingleProduct: FC<SingleProductProps> = ({ product }) => {
     return Math.floor(rate / comments.length)
   }
 
+  console.log(product.comments)
+
   return (
     <div className="single-product__wrapper">
       <div className="single-product">

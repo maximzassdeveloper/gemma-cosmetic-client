@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect } from 'react'
-import { IAttribute, ICategory } from '../types/product'
+import { IAttribute, ICategory } from '../../types/product'
 
 interface ProductFilterProps {
   attributes: IAttribute[]

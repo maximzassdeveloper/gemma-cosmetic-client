@@ -16,14 +16,17 @@
 .product {
   position: relative;
   min-width: 220px;
-  // max-width: 250px;
+  max-width: 260px;
   width: 100%;
   display: flex;
   flex-direction: column;
   transition: .2s;
   &:hover {
     .product__name {
+      transform: skew(-10deg);
       text-decoration: underline;
+      text-decoration-skip-ink: none;
+      text-underline-offset: 1px;
     }
   }
   &__content {
@@ -37,16 +40,17 @@
     font-size: 16px;
     font-weight: 400;
     margin-bottom: 10px;
+    display: block;
+    transition: .2s;
+    transform-origin: left bottom;
     cursor: pointer;
     flex: 1 1 auto;
-    &:hover {
-      text-decoration: underline;
-    }
   }
   &__price {
     font-size: 18px;
     font-weight: 500;
     margin-bottom: 15px;
+    transition: .2s;
   }
   &__add {
     display: flex;
@@ -63,6 +67,8 @@
   }
   &__image {
     cursor: pointer;
+    display: block;
+    transition: .2s;
     width: 100%;
     height: 270px;
     position: relative;
@@ -220,4 +226,8 @@
       }
     }
   }
+}
+
+.product-sort {
+  
 }

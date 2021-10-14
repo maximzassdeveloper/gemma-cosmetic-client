@@ -4,16 +4,16 @@ import classnames from '../../utils/classnames'
 
 import { CartItem } from './CartItem'
 import { CartCheckout } from './CartCheckout'
-import { CartOffer } from './CartOffer'
+// import { CartOffer } from './CartOffer'
 import { useActions } from '../../hooks/useActions'
 import { useTypesSelector } from '../../hooks/useTypedSelector'
-import { getRandomFromArray } from '../../utils/helper'
+// import { getRandomFromArray } from '../../utils/helper'
 
 export const Cart: FC = memo(() => {
 
   const { getCart, setActiveCart, getProducts } = useActions()
   const { total, active, count, products } = useTypesSelector(state => state.cart)
-  const { products: pproducts } = useTypesSelector(state => state.product)
+  // const { products: pproducts } = useTypesSelector(state => state.product)
   const { isAuth } = useTypesSelector(state => state.user)
   const [offetProducts, setOfferProducts] = useState([])
 
@@ -25,16 +25,16 @@ export const Cart: FC = memo(() => {
     getProducts()
   }, [])
   
-  useEffect(() => {
-    if (pproducts?.length) {
-      const arr = pproducts.filter(pr => {
-        let bool = true
-        products.forEach(x => x.slug === pr.slug ? bool =  false : null)
-        return bool
-      })
-      setOfferProducts(getRandomFromArray(arr, 3))
-    }
-  }, [pproducts, products])
+  // useEffect(() => {
+  //   if (pproducts?.length) {
+  //     const arr = pproducts.filter(pr => {
+  //       let bool = true
+  //       products.forEach(x => x.slug === pr.slug ? bool =  false : null)
+  //       return bool
+  //     })
+  //     setOfferProducts(getRandomFromArray(arr, 3))
+  //   }
+  // }, [pproducts, products])
 
   useEffect(() => {
     if (!active) return
@@ -72,7 +72,7 @@ export const Cart: FC = memo(() => {
         )}
       </div>
 
-      <CartOffer products={offetProducts} />
+      {/* <CartOffer products={offetProducts} /> */}
 
       <CartCheckout count={count} total={total} />
 

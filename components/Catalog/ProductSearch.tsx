@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react'
 import { Search } from 'react-feather'
-import { IProduct } from '../types/product'
-import { Input } from './generetic'
+import { IProduct } from '../../types/product'
+import { Input } from '../generetic'
 
 interface ProductSearchProps {
   products: IProduct[]
@@ -10,7 +10,7 @@ interface ProductSearchProps {
 
 export const ProductSearch: FC<ProductSearchProps> = ({ products: iProducts, onChange }) => {
 
-  const [products, setProducts] = useState(iProducts || [])
+  const [products, ] = useState(iProducts || [])
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value

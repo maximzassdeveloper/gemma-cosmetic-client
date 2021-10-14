@@ -3,12 +3,13 @@ import { NextPage } from 'next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 import { Main, Container } from '../components/hoc'
 import { Input, Button } from '../components/generetic'
-import { emailRegExp } from '../utils/validation'
 import { useActions } from '../hooks/useActions'
 import { useTypesSelector } from '../hooks/useTypedSelector'
+import { registerSchema } from '../utils/validationSchemas'
 
 interface RegisterInputs {
   name: string
@@ -21,16 +22,19 @@ const Register: NextPage = () => {
 
   const { register: registerFunc, cleanError } = useActions()
   const { loading, error } = useTypesSelector(state => state.user)
-  const { register, handleSubmit, formState: { errors, touchedFields, isSubmitted } } = useForm<RegisterInputs>()
+  const form = useForm<RegisterInputs>({
+    mode: 'onChange',
+    resolver: yupResolver(registerSchema)
+  })
   const router = useRouter()
   const [btnText, setBtnText] = React.useState('Отправить')
 
-  const onSubmit = handleSubmit(data => {
+  const onSubmit = form.handleSubmit(data => {
     registerFunc(data)
   })
 
   React.useEffect(() => {
-    if (!error && !loading && isSubmitted) {
+    if (!error && !loading && form.formState.isSubmitted) {
       setBtnText('Успешно')
       router.push('/')
     }
@@ -52,35 +56,32 @@ const Register: NextPage = () => {
           <form onSubmit={onSubmit}>
             <Input 
               name='name'
-              register={register}
-              error={errors.name}
-              touched={touchedFields.name}
-              rules={{ required: true }}
+              register={form.register}
+              error={form.formState.errors.name}
+              touched={form.formState.touchedFields.name}
+              required
               placeholder='Имя'
             />
             <Input 
               name='surname'
-              register={register}
+              register={form.register}
               placeholder='Фамилия'
             />
             <Input 
               name='email'
-              register={register}
-              error={errors.email}
-              touched={touchedFields.email}
-              rules={{ required: true, pattern: {
-                value: emailRegExp,
-                message: 'Некорректная почта'
-              } }}
+              register={form.register}
+              error={form.formState.errors.email}
+              touched={form.formState.touchedFields.email}
+              required
               placeholder='Почта'
             />
             <Input 
               name='password'
               type='password'
-              register={register}
-              error={errors.password}
-              touched={touchedFields.password}
-              rules={{ required: true }}
+              register={form.register}
+              error={form.formState.errors.password}
+              touched={form.formState.touchedFields.password}
+              required
               placeholder='Пароль'
             />
             <Button 

@@ -19,6 +19,11 @@
       align-items: center;
       li {
         margin-right: 20px;
+        a {
+          display: block;
+          transition: .2s;
+          transform-origin: left bottom;
+        }
         a:hover, a.active { 
           text-decoration: underline; 
           text-underline-offset: 2px; 
@@ -245,13 +250,39 @@
   padding-bottom: 15px;
   border-bottom: 1px solid rgba($main2, .2);
   margin-bottom: 20px;
+  &__name {
+    display: flex;
+    align-items: center;
+  }
+  &__product {
+    font-size: 14px;
+    font-weight: 500;
+    opacity: .7;
+    width: 180px;
+    text-align: right;
+    a {
+      display: block;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    &:hover {
+      opacity: .9;
+    }
+  }
   &__header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin-bottom: 10px;
     h4 {
       margin-right: 10px;
       font-weight: 500;
+      max-width: 180px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      display: inline-block;
+      white-space: nowrap;
     }
   }
   &__message {
@@ -522,6 +553,101 @@
         height: 100%;
         padding: 10px 15px;
       }
+    }
+  }
+}
+
+.action {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &__back {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background: rgba(#000, .6);
+    left: 0;
+    top: 0;
+    transition: .2s;
+  }
+  &__content {
+    position: relative;
+    background: $bg;
+    z-index: 2;
+    display: flex;
+    max-width: 100%;
+    box-shadow: 0 0 40px rgba(#000, .3);
+    .input {
+      width: 100%;
+    }
+  }
+  &__done {
+    font-size: 26px;
+    color: #2ec42e;
+    position: absolute;
+    font-weight: 600;
+    border: 2px solid #2ec42e;
+    padding: 30px;
+    margin-top: 30px;
+    width: 420px;
+    background: rgba(#2ec42e, .1);
+  }
+  &__form {
+    transition: .2s;
+    &.hide {
+      opacity: 0;
+      transform: scale(.4);
+    }
+  }
+  &__text {
+    width: 480px;
+    max-width: 100%;
+    padding: 30px 30px;
+  }
+  &__image {
+    width: 400px;
+    // height: 510px;
+    max-width: 100%;
+    img {
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  &__title {
+    font-size: 26px;
+    font-weight: 500;
+    margin-bottom: 15px;
+  }
+  &__list {
+    list-style: disc;
+    margin-bottom: 30px;
+    margin-left: 20px;
+    li {
+      list-style: disc;
+      margin-bottom: 10px;
+    }
+  }
+  &__close {
+    width: 26px;
+    height: 26px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: .3;
+    svg {
+      stroke: $accent;
+      height: 22px;
+      stroke-width: 1px;
     }
   }
 }

@@ -1,7 +1,6 @@
 import axios from 'axios'
-import { SERVER_URL } from '../utils/config'
 
-export const BASE_URL = `${SERVER_URL}/api`
+export const BASE_URL = `${process.env.NEXT_PUBLIC_SERVER_URL}/api`
 
 const authAxios = axios.create({
   withCredentials: true,

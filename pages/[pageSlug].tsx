@@ -1,7 +1,7 @@
 import { NextPage, GetServerSideProps } from 'next'
 import { Container, Main } from '../components/hoc'
 import { fetchData } from '../services/dataService'
-import { IPage } from '../types/page'
+import { IPage } from '../types/help'
 import { TagList } from '../components'
 import { editorRender } from '../utils/helper'
 

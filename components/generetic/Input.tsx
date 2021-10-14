@@ -1,9 +1,8 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, memo } from 'react'
 import { UseFormRegister, FieldError } from 'react-hook-form'
 import { CSSTransition } from 'react-transition-group'
-import { EyeOff, Eye, X } from 'react-feather'
+import { EyeOff, Eye } from 'react-feather'
 import { useTransition, animated } from '@react-spring/web'
-import { renderError } from '../../utils/validation'
 import classnames from '../../utils/classnames'
 
 export interface InputValidateRules {
@@ -23,6 +22,7 @@ interface InputProps {
   disabled?: boolean
   autoComplete?: 'on' | 'off'
   className?: string
+  required?: boolean
 
   register?: UseFormRegister<any>
   touched?: boolean
@@ -35,8 +35,8 @@ interface InputProps {
   onFocus?: React.FocusEventHandler<HTMLInputElement>
 }
 
-export const Input: FC<InputProps> = ({
-  name, type, placeholder, value, disabled, autoComplete, className, register, touched, error, rules, onChange, onClick, onFocus, onBlur
+export const Input: FC<InputProps> = memo(({
+  name, type, required, placeholder, value, disabled, autoComplete, className, register, touched, error, rules, onChange, onClick, onFocus, onBlur
 }) => {
 
   const [val, setVal] = useState('')
@@ -46,7 +46,6 @@ export const Input: FC<InputProps> = ({
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setVal(e.target.value)
-    console.log(e)
     if (onChange) onChange(e)
   }
 
@@ -66,7 +65,7 @@ export const Input: FC<InputProps> = ({
     className,
     { 'password': type === 'password' },
     { 'disabled': disabled } ,
-    { 'required': rules?.required },
+    { 'required': required },
     { 'error': error && touched },
     { 'success': !error && touched },
   )
@@ -79,7 +78,7 @@ export const Input: FC<InputProps> = ({
             type={ownType}
             placeholder={placeholder}
             disabled={disabled}
-            autoComplete={autoComplete}
+            autoComplete={autoComplete || 'off'}
           />
         : <input 
             ref={inp}
@@ -89,7 +88,7 @@ export const Input: FC<InputProps> = ({
             type={ownType}
             placeholder={placeholder}
             disabled={disabled}
-            autoComplete={autoComplete}
+            autoComplete={autoComplete || 'off'}
 
             onChange={changeHandler}
             onClick={onClick}
@@ -106,10 +105,10 @@ export const Input: FC<InputProps> = ({
       </CSSTransition>
 
       {errorTransition((styles, item) => 
-        touched && item && (
-          <animated.div style={styles} className="input__error">{renderError(item, rules)}</animated.div>
+        item && touched && (
+          <animated.div style={styles} className="input__error">{item.message}</animated.div>
         )
       )}
     </div>
   )
-}
+})

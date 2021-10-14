@@ -5,14 +5,14 @@ import { Container } from './hoc'
 import { Cart } from './Cart/Cart'
 import { useActions } from '../hooks/useActions'
 import { useTypesSelector } from '../hooks/useTypedSelector'
-import { ActiveLink } from '.'
+import { ActiveLink, CallToActionPopup } from '.'
 
 export const Header: FC = () => {
 
   const { setActiveCart, clearCart, logout, getPages } = useActions()
   const { active, count } = useTypesSelector(state => state.cart)
   const { isAuth, user } = useTypesSelector(state => state.user)
-  const { pages } = useTypesSelector(state => state.page)
+  const { pages } = useTypesSelector(state => state.help)
   const [menuActive, setMenuActive] = useState(false)
 
   const logoutHandler = () => {
@@ -103,5 +103,7 @@ export const Header: FC = () => {
       </ul>
     </div>
     {isAuth && <Cart />}
+
+    <CallToActionPopup />
   </>
 }

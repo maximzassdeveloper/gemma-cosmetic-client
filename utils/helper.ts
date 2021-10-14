@@ -1,24 +1,22 @@
 import editorParser from 'editorjs-html'
 import htmlParser from 'html-react-parser'
 
-function getRandom(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min
+function getRandom(min: number, max: number) {
+  return Math.floor(min + Math.random() * (max + 1 - min))
 }
 
-export const getRandomFromArray = (items: any[], count: number = 1) => {
-  const arr = []
+export const getRandomFromArray = (arr: any[], count = 1): any[] => {
+  const indexes = arr.map((_,i) => i)
+  const returned: number[] = []
+  const max = count > arr.length ? arr.length : count
 
-  console.log(items)
-
-  for (let i = 0; i < count; i++) {
-    let index = getRandom(0, items.length)
-    if (index) {
-      arr.push(items[index])
-      items.splice(index, 1)
-    }
+  for (let i = 0; i < max; i++) {
+    const r = getRandom(0, indexes.length-1)
+    returned.push(arr[indexes[r]])
+    indexes.splice(r, 1)
   }
-  
-  return arr
+
+  return returned
 }
 
 export const editorRender = (content: string) => {
@@ -51,4 +49,22 @@ export const checkExtension = (str: string) => {
   if (imgArr.includes(str)) return 'image'
   else if (videoArr.includes(str)) return 'video'
   else return ''
+}
+
+export function setCookie(cookName: string, cookValue: any, expDays: number) {
+  let date = new Date()
+  date.setTime(date.getTime() + (expDays * 24 * 60 * 60 * 1000))
+  const expires = "expires=" + date.toUTCString()
+  document.cookie = cookName + "=" + cookValue + "; " + expires + "; path=/"
+}
+
+export function getCookie(cookName: string) {
+  const name = cookName + "="
+  const cDecoded = decodeURIComponent(document.cookie)
+  const cArr = cDecoded .split('; ')
+  let res: any
+  cArr.forEach(val => {
+    if (val.indexOf(name) === 0) res = val.substring(name.length)
+  })
+  return JSON.parse(res)
 }

@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { AdminMain } from '../../../components/hoc'
 import { Input, Button } from '../../../components/generetic'
 import { fetchData } from '../../../services/dataService'
-import { IPage } from '../../../types/page'
+import { IPage } from '../../../types/help'
 import { CreateTags } from '../../../components/admin/widgets'
 import { MetaForm } from '../../../components/admin'
 

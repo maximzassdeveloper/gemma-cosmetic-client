@@ -174,11 +174,11 @@
   min-width: 160px;
   min-height: 35px;
   padding: 8px 20px;
-  background: $accent;
+  background-color: $accent;
   font-size: 16px;
   font-weight: 400;
   color: #fff;
-  border: none;
+  border: 2px solid transparent;
   cursor: pointer;
   z-index: 1;
   transition: .2s, 0s background;
@@ -186,9 +186,9 @@
     background: #785352;
   }
   * {
-    font-size: 16px;
-    font-weight: 400;
-    color: #fff;
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit;
   }
   &:before {
     display: block;
@@ -203,6 +203,14 @@
     transform-origin: center;
     transform: scale(.8);
     opacity: 0;
+  }
+  &.outlined {
+    background: none;
+    color: $accent;
+    border-color: $accent;
+    &:hover {
+      background: rgba($accent, .05);
+    }
   }
   &.loading {
     &:before {
@@ -267,6 +275,56 @@
     &__text {
       color: $admin-grey2;
       font-size: 16px;
+    }
+  }
+}
+
+.select {
+  max-width: 300px;
+  position: relative;
+  z-index: 3;
+  &__value {
+    position: relative;
+    z-index: 2;
+    border: 1px solid $accent;
+    padding: 5px 10px;
+    cursor: pointer;
+    background: $bg;
+  }
+  &__list {
+    margin-top: -1px;
+    position: absolute;
+    display: block;
+    width: 100%;
+    border: 1px solid $accent;
+    background: $bg;
+    z-index: 1;
+    transition: .2s;
+    &.enter-active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    &.enter {
+      opacity: 0;
+      transform: translateY(-5px);
+    }
+    &.exit {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    &.exit-active {
+      opacity: 0;
+      transform: translateY(-5px);
+    }
+  }
+  &__item {
+    padding: 3px 10px;
+    cursor: pointer;
+    &.active {
+      background: $bg2;
+    }
+    &:hover {
+      background: $bg2;
     }
   }
 }

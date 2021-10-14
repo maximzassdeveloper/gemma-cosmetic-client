@@ -13,6 +13,7 @@ export interface IComment {
   productId: number
   images?: string[]
   videos?: string[]
+  product?: IProduct
 }
 
 export interface IAttribute {

@@ -22,9 +22,10 @@ $admin-main: #222;
 @import './hoc.scss';
 @import './product.scss';
 @import './cart.scss';
-@import './media.scss';
 @import './admin.scss';
 @import './admin-widgets.scss';
+@import './partners.scss';
+@import './media.scss';
 
 body, html {
   margin: 0;
@@ -78,7 +79,6 @@ p {
 }
 
 a {
-  color: $main;
   text-decoration: none;
 }
 
@@ -95,6 +95,12 @@ mark {
   flex: 1 1 auto;
 }
 
+.title {
+  font-size: 36px;
+  margin-bottom: 10px;
+  line-height: 1.3em;
+}
+
 .page {
   max-width: 100%;
   margin: 0 auto;
@@ -105,6 +111,31 @@ mark {
     font-size: 36px;
     font-weight: 400;
     margin-bottom: 30px;
+  }
+}
+
+.home {
+  &-first {
+    display: flex;
+    justify-content: space-between;
+    &__info {
+      padding-top: 70px;
+      p {
+        max-width: 400px;
+      }
+    }
+    .products {
+      justify-content: flex-end;
+      flex-wrap: nowrap;
+    }
+    &__buttons {
+      margin-top: 30px;
+      margin-bottom: 15px;
+      .button:first-child {
+        margin-right: 20px;
+        margin-bottom: 15px;
+      }
+    }
   }
 }
 
