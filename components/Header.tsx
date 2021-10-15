@@ -104,6 +104,6 @@ export const Header: FC = () => {
     </div>
     {isAuth && <Cart />}
 
-    {/* <CallToActionPopup /> */}
+    <CallToActionPopup />
   </>
 }

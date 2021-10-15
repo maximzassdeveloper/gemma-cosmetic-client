@@ -10,7 +10,6 @@ import { useActions } from '../hooks/useActions'
 import classnames from '../utils/classnames'
 import { getCookie, setCookie } from '../utils/helper'
 import { callToActionSchema } from '../utils/validationSchemas'
-import axios from 'axios'
 import authAxios from '../services/axiosService'
 
 interface FormInputs {
@@ -30,11 +29,11 @@ export const CallToActionPopup: FC = () => {
   })
 
   const submitHandler = form.handleSubmit(async data => {
-    const { data: d } = await authAxios.post('/mails/mail-partner', data)
-    if (!d.success) return
-    setCookie('ispartner', true, 15)
-    setIsSubmit(true)
-    form.reset()
+    // const { data: d } = await authAxios.post('/mails/mail-partner', data)
+    // if (!d.success) return
+    // setCookie('ispartner', true, 15)
+    // setIsSubmit(true)
+    // form.reset()
   })
 
   const timeout = () => {
