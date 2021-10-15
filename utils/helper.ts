@@ -66,5 +66,5 @@ export function getCookie(cookName: string) {
   cArr.forEach(val => {
     if (val.indexOf(name) === 0) res = val.substring(name.length)
   })
-  return JSON.parse(res)
+  return JSON.parse(res || '')
 }

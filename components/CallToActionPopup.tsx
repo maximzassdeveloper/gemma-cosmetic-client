@@ -31,29 +31,29 @@ export const CallToActionPopup: FC = () => {
   const submitHandler = form.handleSubmit(async data => {
     const { data: d } = await authAxios.post('/mails/mail-partner', data)
     if (!d.success) return
-    // setCookie('ispartner', true, 15)
+    setCookie('ispartner', true, 15)
     setIsSubmit(true)
     form.reset()
   })
 
-  // const timeout = () => {
-  //   const isPartner = getCookie('ispartner')
-  //   if (!isPartner) {
-  //     setTimeout(() => {
-  //       !active ? setCallToAction(true) : null
-  //     }, 2*60*1000)
-  //   }
-  // }
+  const timeout = () => {
+    const isPartner = getCookie('ispartner')
+    if (!isPartner) {
+      setTimeout(() => {
+        !active ? setCallToAction(true) : null
+      }, 2*60*1000)
+    }
+  }
 
-  // useEffect(() => {
-  //   timeout()
-  //   document.body.style.overflow = active ? 'hidden' : 'auto'
-  //   if (!active && isSubmit) setIsSubmit(false)
-  // }, [active])
+  useEffect(() => {
+    timeout()
+    document.body.style.overflow = active ? 'hidden' : 'auto'
+    if (!active && isSubmit) setIsSubmit(false)
+  }, [active])
   
-  // useEffect(() => {
-  //   timeout()
-  // }, [])
+  useEffect(() => {
+    timeout()
+  }, [])
 
   const confettiRender = () => {
     const h = window.innerHeight
