@@ -15,7 +15,7 @@ interface HomeProps {
 
 const Home: NextPage<HomeProps> = ({ products }) => {
 
-  const { getProducts } = useActions()
+  const { getProducts, setCallToAction } = useActions()
 
   useEffect(() => {
     getProducts()
@@ -31,7 +31,7 @@ const Home: NextPage<HomeProps> = ({ products }) => {
               <h1 className="title">Корейская косметика <br/>GEMMA в России</h1>
               <p>Высококачественная продукция премиум-класса производства Южной Кореи!</p>
               <div className="home-first__buttons">
-                <Button><Link href='/partners'>Стать партнером</Link></Button>
+                <Button onClick={() => setCallToAction(true)}><Link href='/partners'>Стать партнером</Link></Button>
                 <Button className="outlined"><Link href='/catalog'>Приступить к покупкам</Link></Button>
               </div>
             </div>
