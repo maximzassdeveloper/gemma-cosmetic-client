@@ -36,24 +36,24 @@ export const CallToActionPopup: FC = () => {
     // form.reset()
   })
 
-  const timeout = () => {
-    const isPartner = getCookie('ispartner')
-    if (!isPartner) {
-      setTimeout(() => {
-        !active ? setCallToAction(true) : null
-      }, 2*60*1000)
-    }
-  }
+  // const timeout = () => {
+  //   const isPartner = getCookie('ispartner')
+  //   if (!isPartner) {
+  //     setTimeout(() => {
+  //       !active ? setCallToAction(true) : null
+  //     }, 2*60*1000)
+  //   }
+  // }
 
-  useEffect(() => {
-    timeout()
-    document.body.style.overflow = active ? 'hidden' : 'auto'
-    if (!active && isSubmit) setIsSubmit(false)
-  }, [active])
+  // useEffect(() => {
+  //   timeout()
+  //   document.body.style.overflow = active ? 'hidden' : 'auto'
+  //   if (!active && isSubmit) setIsSubmit(false)
+  // }, [active])
   
-  useEffect(() => {
-    timeout()
-  }, [])
+  // useEffect(() => {
+  //   timeout()
+  // }, [])
 
   const confettiRender = () => {
     const h = window.innerHeight
