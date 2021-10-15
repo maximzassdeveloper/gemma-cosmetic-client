@@ -5,3 +5,5 @@ services:
     container_name: client
     build: 
       context: .
+    ports:
+      - 3000:3000
