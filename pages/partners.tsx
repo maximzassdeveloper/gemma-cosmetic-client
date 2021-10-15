@@ -6,9 +6,9 @@ import { FAQ, TagList } from '../components'
 import { Button } from '../components/generetic'
 import { useActions } from '../hooks/useActions'
 
-// interface Props {
-//   page: IPage
-// }
+interface Props {
+  page: IPage
+}
 
 interface IReward {
   name: string
@@ -23,16 +23,16 @@ const rewards: IReward[] = [
   { name: 'Матчинг бонус', content: 'Подготавливай новых лидеров и получай дополнительные вознограждения' },
 ]
 
-const Page: NextPage =() => {
+const Page: NextPage<Props> = ({ page }) => {
 
   const { setCallToAction } = useActions()
 
   return (
     <Main 
-      // description={page.metaDesc} 
-      // title={page.name}
-      // keywords={page.metaKeywords}
-      // robots={page.metaRobots}
+      description={page.metaDesc} 
+      title={page.name}
+      keywords={page.metaKeywords}
+      robots={page.metaRobots}
     > 
       <div className="partners">
         <Container>
@@ -110,7 +110,7 @@ const Page: NextPage =() => {
             />
           </div>        
 
-          {/* <TagList tags={page.tags} /> */}
+          <TagList tags={page.tags} />
 
         </Container>
       </div>
@@ -120,9 +120,9 @@ const Page: NextPage =() => {
 
 export default Page
 
-// export const getServerSideProps: GetServerSideProps = async () => {
-//   const page = await fetchData(`/pages/page/partners`)
-//   if (!page) return { notFound: true }
+export const getServerSideProps: GetServerSideProps = async () => {
+  const page = await fetchData(`/pages/page/partners`)
+  if (!page) return { notFound: true }
 
-//   return { props: { page } }
-// }
+  return { props: { page } }
+}

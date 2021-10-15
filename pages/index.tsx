@@ -17,8 +17,6 @@ const Home: NextPage<HomeProps> = ({ products }) => {
 
   const { getProducts, setCallToAction } = useActions()
 
-  console.log(process.env.NEXT_PUBLIC_SERVER_URL)
-
   useEffect(() => {
     getProducts()
   }, [])
