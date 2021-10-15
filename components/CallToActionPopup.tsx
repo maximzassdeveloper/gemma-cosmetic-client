@@ -31,7 +31,7 @@ export const CallToActionPopup: FC = () => {
   const submitHandler = form.handleSubmit(async data => {
     const { data: d } = await authAxios.post('/mails/mail-partner', data)
     if (!d.success) return
-    setCookie('ispartner', true, 15)
+    // setCookie('ispartner', true, 15)
     setIsSubmit(true)
     form.reset()
   })
