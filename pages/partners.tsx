@@ -122,7 +122,7 @@ export default Page
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const page = await fetchData(`/pages/page/partners`)
-  // if (!page) return { notFound: true }
+  if (!page) return { notFound: true }
 
   return { props: { page } }
 }
