@@ -10,6 +10,7 @@ import Table from '@editorjs/table'
 import Quote from '@editorjs/quote'
 import List from '@editorjs/list'
 import Delimiter from '@editorjs/delimiter'
+import { SERVER_URL } from '../../utils/config'
 // import Attaches from '@editorjs/attaches'
 
 interface EditorProps {
@@ -62,7 +63,7 @@ export const Editor: FC<EditorProps> = ({ data, onChange: changeHand }) => {
           class: Image,
           config: {
             endpoints: {
-              byFile: 'http://localhost:5000/api/upload',
+              byFile: `${SERVER_URL}/api/upload`,
             },
             types: 'image/*, video/*',
             buttonText: 'Выбрать изображение'

@@ -47,7 +47,6 @@ export const FileUpload: FC<FileUploadProps> = memo(({
 
   const inputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = Array.from(e.target.files || [])
-    console.log(f)
     setFiles([...files, ...f].slice(0, max))
 
     if (onChange) onChange([...files, ...f].slice(0, max))

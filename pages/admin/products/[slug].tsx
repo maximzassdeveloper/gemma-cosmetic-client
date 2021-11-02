@@ -50,7 +50,7 @@ const AdminSingleProductPage: NextPage<Props> = ({ product }) => {
       metaKeywords: product.metaKeywords || '',
       metaRobots: product.metaRobots || '',
       shortDesc: product.shortDesc || '',
-      desc: JSON.parse(product.desc || '') || '',
+      desc: product.desc ? JSON.parse(product.desc) : '',
       categories: product.categories?.map(i => i.name) || [],
       attributes: product.attribute_values || [],
       tags: product.tags || []
@@ -58,7 +58,6 @@ const AdminSingleProductPage: NextPage<Props> = ({ product }) => {
   })
 
   const onSubmit = handleSubmit(async data => {
-    console.log(data)
     const formData = new FormData()
     formData.append('name', data.name)
     formData.append('slug', data.slug || '')
