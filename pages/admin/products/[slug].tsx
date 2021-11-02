@@ -53,7 +53,7 @@ const AdminSingleProductPage: NextPage<Props> = ({ product }) => {
       desc: product.desc ? JSON.parse(product.desc) : '',
       categories: product.categories?.map(i => i.name) || [],
       attributes: product.attribute_values || [],
-      tags: product.tags || []
+      tags: product.tags || [] 
     }
   })
 
