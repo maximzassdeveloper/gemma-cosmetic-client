@@ -13,6 +13,6 @@ export { TagList } from './TagList'
 export { ImagePopup } from './ImagePopup'
 export { ProductSearch } from './Catalog/ProductSearch'
 export { CallToActionPopup } from './CallToActionPopup'
-export { FAQ } from './FAQ'
+export { CallbackForm } from './CallbackForm'
 
 export { ActiveLink } from './ActiveLink'

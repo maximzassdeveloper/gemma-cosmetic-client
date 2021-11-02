@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import { store } from '../rstore'
 import { useActions } from '../hooks/useActions'
 import '../styles/global.scss'
+import '@splidejs/splide/dist/css/splide.min.css'
 
 const ComponentForRefresh: FC = () => {
 

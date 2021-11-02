@@ -61,18 +61,45 @@
     display: none;
     cursor: pointer;
     height: 20px;
+    margin-top: -2px;
     svg {
-      height: 20px;
+      height: 22px;
     }
+  }
+  &__partners {
+    height: 52px;
+    width: 170px;
+    padding: 0 26px;
+    text-align: left; 
   }
 }
 
 .footer {
   background: $accent;
   margin-top: 60px;
-  padding: 30px 0;
+  padding: 20px 0;
   * {
     color: #fff;
+  }
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__socials {
+    display: flex;
+    align-items: center;
+    a {
+      margin-left: 10px;
+      transition: .2s;
+      &:hover {
+        transform: translateY(-5px);
+      }
+    }
+    svg {
+      stroke: #fff;
+      height: 20px;
+    }
   }
 }
 
@@ -391,8 +418,8 @@
   &__filter {
     min-width: 220px;
     margin-right: 10px;
-    background: $bg2;
-    padding: 20px 10px;
+    margin-top: 40px;
+    padding: 0px 10px 20px;
   }
 }
 
@@ -404,13 +431,12 @@
     margin-bottom: 15px;
   }
   .item {
-    border: 1px solid $accent;
     margin-bottom: 20px;
     &:last-child { margin-bottom: 0; }
     &__header {
-      border-bottom: 1px solid $accent;
+      border: 1px solid $accent;
       margin-bottom: 5px;
-      padding: 0 5px;
+      padding: 3px 5px;
     }
     .option {
       padding: 2px 5px;
@@ -574,6 +600,7 @@
     background: rgba(#000, .6);
     left: 0;
     top: 0;
+    cursor: pointer;
     transition: .2s;
   }
   &__content {
@@ -649,5 +676,37 @@
       height: 22px;
       stroke-width: 1px;
     }
+  }
+}
+
+.callback-form {
+  width: 100%;
+  position: relative;
+  transition: .2s;
+  &.success {
+    padding-bottom: 100px;
+  }
+  h2, h3 {
+    margin-bottom: 30px;
+  }
+  .input {
+    margin-bottom: 20px;
+    max-width: 380px;
+    width: 100%;
+    font-size: 18px;
+  }
+  .button {
+    margin-top: 20px;
+  }
+  &__success {
+    position: absolute;
+    max-width: 100%;
+    left: 0;
+    bottom: 20px;
+    color: #fff;
+    background: rgba($success, .8);
+    padding: 8px 15px;
+    border: 2px solid #24a31b;
+    transition: .2s;
   }
 }

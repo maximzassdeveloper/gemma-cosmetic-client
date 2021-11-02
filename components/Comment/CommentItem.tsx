@@ -23,8 +23,8 @@ export const CommentItem: FC<CommentItemProps> = ({ comment }) => {
 
       <ImagePopup 
         files={[...comment.images, ...comment.videos]} 
-        active={active} 
-        cur={cur}
+        visible={active} 
+        active={cur}
         onClose={() => setActive(false)}
       />
 

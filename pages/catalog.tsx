@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { GetServerSideProps, NextPage } from 'next'
 import { Container, Main } from '../components/hoc'
 import { ProductFilter, ProductList, ProductSearch, ProductSort } from '../components'
@@ -18,7 +18,11 @@ const CatalogPage: NextPage<CatalogProps> = ({
 }) => {
 
   const router = useRouter()
-  const [products, setProducts] = useState(iProducts || [])
+  const [products, setProducts] = useState(iProducts)
+
+  useEffect(() => {
+    setProducts(iProducts)
+  }, [iProducts])
 
   const changeFilter = ({ attrs, cats }: { cats: string[], attrs: string[] }) => {
     if (!attrs.length && !cats.length) {

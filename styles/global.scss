@@ -1,7 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+
+$raleway: 'Raleway', sans-serif;
+$open-sans: 'Open Sans', sans-serif;
+
 $grey: #B09286;
 $main: #000;
 $main2: #51340E;
 $accent: #6A4242;
+$accent-hover: #866461;
 $bg: #F4EADD;
 $bg2: #F6E3CA;
 
@@ -16,27 +23,17 @@ $admin-grey2: #858585;
 $admin-accent: #746AE4;
 $admin-main: #222;
 
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap');
-@import './components.scss';
-@import './generetic.scss';
-@import './hoc.scss';
-@import './product.scss';
-@import './cart.scss';
-@import './admin.scss';
-@import './admin-widgets.scss';
-@import './partners.scss';
-@import './media.scss';
-
 body, html {
   margin: 0;
   padding: 0;
   width: 100%;
   min-height: 100%;
   background: $bg;
+  scroll-behavior: smooth;
 }
 
 * {
-  font-family: 'Raleway', sans-serif;
+  font-family: $raleway;
   color: $main2;
   margin: 0;
   padding: 0;
@@ -69,6 +66,14 @@ button {
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
+  line-height: 1.2em;
+}
+
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
 }
 
 p {
@@ -86,11 +91,16 @@ mark {
   background-color: #eee395;
 }
 
+section {
+  padding: 60px 0;
+}
+
 .wrapper {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
+
 .main {
   flex: 1 1 auto;
 }
@@ -99,44 +109,6 @@ mark {
   font-size: 36px;
   margin-bottom: 10px;
   line-height: 1.3em;
-}
-
-.page {
-  max-width: 100%;
-  margin: 0 auto;
-  &.notfull {
-    max-width: 800px;
-  }
-  h1 {
-    font-size: 36px;
-    font-weight: 400;
-    margin-bottom: 30px;
-  }
-}
-
-.home {
-  &-first {
-    display: flex;
-    justify-content: space-between;
-    &__info {
-      padding-top: 70px;
-      p {
-        max-width: 400px;
-      }
-    }
-    .products {
-      justify-content: flex-end;
-      flex-wrap: nowrap;
-    }
-    &__buttons {
-      margin-top: 30px;
-      margin-bottom: 15px;
-      .button:first-child {
-        margin-right: 20px;
-        margin-bottom: 15px;
-      }
-    }
-  }
 }
 
 *[click-animating=true]:after {
@@ -161,3 +133,34 @@ mark {
     box-shadow:0 0 0 5px rgba($accent, .3);
   }
 }
+
+.fade {
+  &-enter {
+    opacity: 0;
+    transform: translateX(-5px);
+  }
+  &-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  &-exit {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  &-exit-active {
+    opacity: 0;
+    transform: translateX(-5px);
+  }    
+}
+
+
+@import './generetic.scss';
+@import './components.scss';
+@import './hoc.scss';
+@import './pages.scss';
+@import './sections.scss';
+@import './product.scss';
+@import './cart.scss';
+@import './admin.scss';
+@import './admin-widgets.scss';
+@import './media.scss';

@@ -1,0 +1,244 @@
+.section-title {
+  font-size: 30px;
+  line-height: 1.1em;
+  margin-bottom: 40px;
+  position: relative;
+  width: max-content;
+  &.line-left:before {
+    content: '';
+    position: absolute;
+    display: block;
+    background: $accent;
+    bottom: 7px;
+    height: 2px;
+    width: 150px;
+    max-width: 100%;
+    left: calc(100% + 20px);
+  }
+}
+
+.slider {
+  &__header {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 40px;
+    .section-title {
+      margin-bottom: 0;
+    }
+    .slider-progress-bar {
+      top: -8px;
+      margin-left: 5%;
+    }
+  }
+  &__arrows {
+    button {
+      background: $bg2;
+      svg {
+        stroke: $accent;
+      }
+    }
+  }
+  &-progress-bar {
+    position: relative;
+    height: 3px;
+    width: 60%;
+    max-width: 500px;
+    display: block;
+    background: rgba($accent, .2);
+    overflow: hidden;
+    transition: .2s;
+    &__active {
+      position: absolute;
+      width: 0px;
+      height: 100%;
+      left: 0;
+      top: 0;
+      background: $accent;
+      transition: .2s;
+    }
+  }
+}
+
+.gallery {
+  &__item {
+    cursor: pointer;
+  }
+}
+
+.product-section {
+  .product {
+    height: 100%;
+    width: 100% !important;
+  }
+}
+
+.contacts {
+  display: block;
+  max-width: 450px;
+  width: 100%;
+  padding: 20px 30px;
+  border: 2px solid $accent;
+  &__item {
+    display: block;
+    margin-bottom: 20px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    span {
+      display: block;
+      font-size: 14px;
+      color: rgba($main, .5);
+      margin-bottom: 5px;
+    }
+    a, p {
+      font-size: 18px;
+      margin-left: 8px;
+      font-weight: 500;
+    }
+  }
+}
+
+.faq {
+  .item {
+    position: relative;
+    margin-bottom: 20px;
+    padding-left: 30px;
+    max-width: 600px;
+    &__title {
+      font-size: 20px;
+      font-weight: 500;
+      padding-bottom: 8px;
+      cursor: pointer;
+      &:hover {
+        .item__toggle {
+          background: rgba($accent, .1);
+        }
+      }
+    }
+    &__content {
+      font-size: 16px;
+      margin: 0;
+    }
+    &__toggle {
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 22px;
+      line-height: 0;
+      width: 20px;
+      font-size: 34px;
+      font-weight: 400;
+      margin-top: 3px;
+      border-radius: 2px;
+    }
+  }
+}
+
+.section-image {
+  img {
+    max-width: 40%;
+  }
+  &__info {
+    max-width: 630px;
+    margin-left: 5%;
+    h2, h3 {
+      margin-bottom: 30px;
+    } 
+  }
+}
+
+.rewards {
+  &__col {
+    width: 100%;
+    max-width: 420px;
+    margin-right: 5%;
+  }
+  &__header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin-bottom: 40px;
+    h2 {
+      margin-bottom: 0;
+    }
+  }
+  &__list {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  &-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+    &--download {
+      background: $accent;
+      color: #fff;
+      height: 78px;
+      padding: 15px 30px;
+      line-height: 1.4em;
+      transition: .2s;
+      &:hover {
+        background: $accent-hover;
+      }
+    }
+    &__image {
+      margin-right: 15px;
+      min-width: 36px;
+      img {
+        // height: 40px;
+        width: 100%;
+      }
+    }
+    h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    p {
+      font-size: 18px;
+    }
+  }
+}
+
+.numbers-section {
+  .container {
+    display: flex;
+    justify-content: center;
+  }
+  &-item {
+    max-width: 300px;
+    width: 100%;
+    margin: 0 15px;
+    &__number {
+      display: inline-block;
+      font-family: $open-sans;
+      font-size: 40px;
+      font-weight: 600;
+      margin-right: 7px;
+      margin-bottom: 2px;
+    }
+    span {
+      display: inline-block;
+      font-size: 20px;
+    }
+    p {
+      display: block;
+    }
+  }
+}
+
+.callback-section {
+  h2 {
+    margin-bottom: 30px;
+  }
+  &__form {
+    max-width: 420px;
+    margin-left: 7%;
+  }
+}

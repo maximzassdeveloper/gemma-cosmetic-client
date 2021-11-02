@@ -51,20 +51,27 @@ export const checkExtension = (str: string) => {
   else return ''
 }
 
-export function setCookie(cookName: string, cookValue: any, expDays: number) {
-  let date = new Date()
+// Cookies
+
+export function setCookie(name: string, val: any, expDays: number = 7) {
+  const date = new Date()
+  const value = JSON.stringify(val ?? '')
+
   date.setTime(date.getTime() + (expDays * 24 * 60 * 60 * 1000))
-  const expires = "expires=" + date.toUTCString()
-  document.cookie = cookName + "=" + cookValue + "; " + expires + "; path=/"
+  document.cookie = name+"="+value+"; expires="+date.toUTCString()+"; path=/"
 }
 
-export function getCookie(cookName: string) {
-  const name = cookName + "="
-  const cDecoded = decodeURIComponent(document.cookie)
-  const cArr = cDecoded .split('; ')
-  let res: any
-  cArr.forEach(val => {
-    if (val.indexOf(name) === 0) res = val.substring(name.length)
-  })
-  return JSON.parse(res || '')
+export function getCookie(name: string) {
+  const value = "; " + document.cookie
+  const parts = value.split("; " + name + "=")
+  
+  if (parts.length == 2) {
+    return JSON.parse(parts.pop().split(";").shift() ?? '')
+  }
+}
+
+export function deleteCookie(name: string) {
+  const date = new Date()
+  date.setTime(date.getTime() + (-1 * 24 * 60 * 60 * 1000))
+  document.cookie = name+"=; expires="+date.toUTCString()+"; path=/"
 }

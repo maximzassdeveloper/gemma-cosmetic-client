@@ -1,47 +1,92 @@
-import { useEffect } from 'react'
 import { GetServerSideProps, NextPage } from 'next'
-import Link from 'next/link'
 import { Container, Main } from '../components/hoc'
-import { useActions } from '../hooks/useActions'
 import { IProduct } from '../types/product'
 import { fetchData } from '../services/dataService'
-import { Button } from '../components/generetic'
+import { CallbackForm } from '../components'
+import ScrollCircle from '../public/home/scrollCircle.svg'
+import { Contact, FAQ, Gallery, ProductSection } from '../components/sections'
 import { getRandomFromArray } from '../utils/helper'
-import { Product, ProductList } from '../components'
 
 interface HomeProps {
   products: IProduct[]
 }
 
+const advantages = [
+  { src: 'home/list1.svg', title: 'Свободный рынок' },
+  { src: 'home/list2.svg', title: 'Премиальная уникальная продукция' },
+  { src: 'home/list3.svg', title: 'Нет обязательных ежемесячных закупок' },
+  { src: 'home/list4.svg', title: 'Несгораемые квалификации' },
+  { src: 'home/list5.svg', title: 'Щедрый маркетинг на высоких уровнях' },
+]
+
 const Home: NextPage<HomeProps> = ({ products }) => {
 
-  const { getProducts, setCallToAction } = useActions()
+  const submitHandler = (data: any) => {
 
-  useEffect(() => {
-    getProducts()
-  }, [])
+  }
 
   return (
-    <Main>
-      <Container>
-        <div className="home">
+    <Main className="home">
 
-          <div className="home-first">
-            <div className="home-first__info">
-              <h1 className="title">Корейская косметика <br/>GEMMA в России</h1>
-              <p>Высококачественная продукция премиум-класса производства Южной Кореи!</p>
-              <div className="home-first__buttons">
-                <Button onClick={() => setCallToAction(true)}><Link href='/partners'>Стать партнером</Link></Button>
-                <Button className="outlined"><Link href='/catalog'>Приступить к покупкам</Link></Button>
-              </div>
+      <section className="home-first">
+        <Container>
+          <h1>Корейская <br/>
+          косметика <br/>
+          Gemma<br/>
+          уже в России</h1>
+          <div className="home-first__col">
+            <p>Высококачественная продукция премиум-класса производства Южной Кореи!</p>
+            <CallbackForm 
+              className="home-first__form"
+              before={<><h3>Сделайте первый шаг <br/>к своему будущему</h3></>}
+              onSubmit={submitHandler}
+            />
+          </div>
+          <div className="scroll-circle">
+            <div className="scroll-circle__line scroll-circle__line--1"></div>
+            <div className="scroll-circle__img">
+              <ScrollCircle />
             </div>
-            <div className="home-first__products">
-              <ProductList loading={false} products={getRandomFromArray(products, 2)} />
-            </div>
+            <div className="scroll-circle__line scroll-circle__line--2"></div>
           </div>
 
-        </div>
-      </Container>
+        </Container>
+      </section>
+
+      <section className="home-advantages">
+        <Container className="d-flex align-items-center justify-center">
+          <ul className="home-advantages__list">
+            {advantages.map(advantage => 
+              <li key={advantage.title+advantage.src} className="home-advantages__point">
+                <img src={advantage.src} alt="" />
+                {advantage.title}
+              </li>
+            )}
+          </ul>
+          <div className="home-advantages__image">
+            <img src="home/general1.jpg" alt="" />
+          </div>
+        </Container>
+      </section>
+
+      <ProductSection 
+        products={getRandomFromArray(products, 10)} 
+        title={<>Наша <br/>продукция</>} 
+      />
+
+      <Gallery title={<>Награды и<br/> сертификаты</>} />
+
+      <section className="home-info">
+        <Container className="d-flex justify-center">
+          <div className="home-info__col">
+            <FAQ />
+          </div>
+          <div className="home-info__col">
+            <Contact />
+          </div>
+        </Container>
+      </section>
+
     </Main>
   )
 }

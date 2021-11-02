@@ -2,4 +2,14 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  &.d-flex {
+    display: flex;
+  }
+  &.align-items-center { align-items: center; }
+  &.align-items-end { align-items: flex-start; }
+  &.align-items-start { align-items: flex-end; }
+
+  &.justify-center { justify-content: center; }
+  &.justify-start { justify-content: flex-start; }
+  &.justify-end { justify-content: flex-end; }
 }

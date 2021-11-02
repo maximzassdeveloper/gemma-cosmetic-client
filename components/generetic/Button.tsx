@@ -7,13 +7,14 @@ interface ButtonProps {
   loading?: boolean
   type?: 'button' | 'reset' | 'submit'
   style?: React.CSSProperties
-  onClick?: React.MouseEventHandler<HTMLButtonElement>
+  href?: string
+  onClick?: React.MouseEventHandler<any>
 }
 
 export const Button: FC<ButtonProps> = ({ 
-  children, className, loading, type, style, onClick 
+  children, className, loading, type, href, style, onClick 
 }) => {
-  const clickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const clickHandler = (e: React.MouseEvent<any>) => {
     const { currentTarget } = e
     const attrName = 'click-animating'
     const attr = currentTarget.getAttribute(attrName) || 'false'
@@ -33,9 +34,11 @@ export const Button: FC<ButtonProps> = ({
   }
 
   const classes = classnames('button', className, { 'loading': loading })
+  const Tag = href ? 'a' : 'button'
 
   return (
-    <button
+    <Tag
+      href={href}
       className={classes}
       type={type}
       style={style}
@@ -43,6 +46,6 @@ export const Button: FC<ButtonProps> = ({
     >
       {children}
       {loading ? <Loading /> : null}
-    </button>
+    </Tag>
   )
 }

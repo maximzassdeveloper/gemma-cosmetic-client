@@ -1,11 +1,13 @@
 import { FC, useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { ShoppingCart, User, Menu, X } from 'react-feather'
 import { Container } from './hoc'
 import { Cart } from './Cart/Cart'
 import { useActions } from '../hooks/useActions'
 import { useTypesSelector } from '../hooks/useTypedSelector'
-import { ActiveLink, CallToActionPopup } from '.'
+import { ActiveLink } from '.'
+import { Button } from './generetic'
 
 export const Header: FC = () => {
 
@@ -14,6 +16,7 @@ export const Header: FC = () => {
   const { isAuth, user } = useTypesSelector(state => state.user)
   const { pages } = useTypesSelector(state => state.help)
   const [menuActive, setMenuActive] = useState(false)
+  const router = useRouter()
 
   const logoutHandler = () => {
     logout()
@@ -57,18 +60,23 @@ export const Header: FC = () => {
             <li><ActiveLink href='/catalog'>Каталог</ActiveLink></li>
             <li><ActiveLink href='/reviews'>Отзывы</ActiveLink></li>
             {!!pages.length && pages.map(p =>
-              <li key={p.id}><ActiveLink href={`/${p.slug}`}>{p.name}</ActiveLink></li>
+              p.slug !== 'partners' && <li key={p.id}>
+                <ActiveLink href={`/${p.slug}`}>{p.name}</ActiveLink>
+              </li>
             )}
           </ul>
         </nav>
 
         <div className="header__info">
+          <Button onClick={() => router.push('/partners')} className="header__partners">
+            Стать <br/>партнёром
+          </Button>
           {isAuth
             ? <>
-              {user.role === 'ADMIN' 
+              {/* {user.role === 'ADMIN' 
                 ? <span className="header__admin"><Link href='/admin'>Админ</Link></span> 
                 : null
-              }
+              } */}
               <span onClick={() => setActiveCart(!active)} className="header__cart">
                 <ShoppingCart /> <p>Корзина</p> {count}
               </span>
@@ -77,7 +85,7 @@ export const Header: FC = () => {
               </ActiveLink>
               <span onClick={logoutHandler} className="header__logout">Выход</span>
             </>
-            : <div className="moile-none">
+            : <div className="mobile-none">
               <ActiveLink href='/register'>Регистрация</ActiveLink>
               <ActiveLink href='/login'>Вход</ActiveLink>
             </div>
@@ -98,12 +106,13 @@ export const Header: FC = () => {
               <ActiveLink href='/register'>Регистрация</ActiveLink>
               <ActiveLink href='/login'>Вход</ActiveLink>
             </div>
-          : null
+          : <div className="lr">
+              <ActiveLink href={`/user/${user.id}`}>Аккаунт</ActiveLink>
+              <a onClick={logoutHandler}>Выход</a>
+            </div>
         }
       </ul>
     </div>
     {isAuth && <Cart />}
-
-    <CallToActionPopup />
   </>
 }

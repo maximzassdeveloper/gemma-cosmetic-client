@@ -1,8 +1,13 @@
 import { FC } from 'react'
+import classnames from '../../utils/classnames'
 
-export const Container: FC = ({ children }) => {
+interface ContainerProps {
+  className?: string
+}
+
+export const Container: FC<ContainerProps> = ({ children, className }) => {
   return (
-    <div className="container">
+    <div className={classnames('container', className)}>
       {children}
     </div>
   )

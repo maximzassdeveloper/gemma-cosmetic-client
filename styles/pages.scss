@@ -1,0 +1,167 @@
+.page {
+  max-width: 100%;
+  margin: 0 auto;
+  &.notfull {
+    max-width: 800px;
+  }
+  h1 {
+    font-size: 36px;
+    font-weight: 400;
+    margin-bottom: 30px;
+  }
+}
+
+.wrapper {
+  &-home, &-partners {
+    .header {
+      margin-bottom: 0;
+    }
+  }
+}
+
+
+/* Home ------------------------------------- */
+
+.home-first {
+  padding: 0 !important;
+  height: calc(100vh - 52px);
+  min-height: 600px;
+  background: center / cover no-repeat url('../public/home/generalbg.jpg');
+  margin-bottom: 80px;
+  .container {
+    display: flex;
+    justify-content: space-between;
+  }
+  h1 {
+    font-size: 60px;
+    line-height: 1em;
+    color: #fff;
+    margin-top: 10vh;
+  } 
+  p {
+    color: #fff;
+    font-size: 18px;
+    max-width: 300px;
+  }
+  &__col {
+    margin-top: 31.5vh;
+    margin-right: 15%;
+    width: 460px;
+    max-width: 100%;
+  }
+  &__form {
+    background: $bg2;
+    border: 2px solid $accent;
+    margin-top: 50px;
+    padding: 30px;
+    .callback-form__success {
+      left: 15px;
+      right: 15px;
+    }
+    .input {
+      // font-size: 18px;
+    }
+  }
+}
+
+.scroll-circle {
+  position: absolute;
+  top: 33vh;
+  right: 6%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  &__img {
+    margin: 10px 0;
+    display: block;
+    animation: 30s rotate infinite normal linear;
+  }
+  &__line {
+    display: block;
+    width: 3px;
+    background: #fff;
+    &--1 {
+      height: 45px;
+    }
+    &--2 {
+      height: 140px;
+    }
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.home-advantages {
+  &__image {
+    max-width: 100%;
+    width: 500px;
+    margin-left: 70px;
+  }
+  &__point {
+    margin-bottom: 20px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    img {
+      margin-right: 10px;
+    }
+  }
+}
+
+.home-info {
+  &__col {
+    max-width: 460px;
+    width: 100%;
+    &:first-child {
+      margin-right: 60px;
+    }
+  }
+}
+
+/* Partners ------------------------------------- */
+
+.partners {
+  p {
+    font-size: 18px;
+  }
+  &-first {
+    position: relative;
+    padding: 13vh 0 0 !important;
+    margin-bottom: 100px;
+    height: calc(100vh - 52px);
+    min-height: 600px;
+    &:before {
+      content: '';
+      position: absolute;
+      display: block;
+      background: url('../public/partners/partnersbg.jpg');
+      right: 0;
+      top: 0;
+      height: 100%;
+      width: 65%;
+    }
+    * {
+      position: relative;
+    }
+    h1 {
+      font-size: 60px;
+      margin-bottom: 30px;
+      line-height: 1em;
+    }
+    p {
+      max-width: 545px;
+      margin-bottom: 30px;
+    }
+  }
+}

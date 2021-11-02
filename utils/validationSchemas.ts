@@ -2,7 +2,7 @@ import * as yup from 'yup'
 
 export const callToActionSchema = yup.object({
   name: yup.string().required('Имя обязательно для заполнения'),
-  email: yup.string().email('Некорректная почта').required('Почта обязательно для заполнения'),
+  email: yup.string().email('Некорректная почта').required('Почта обязательно для заполнения')
 })
 
 export const loginSchema = yup.object({

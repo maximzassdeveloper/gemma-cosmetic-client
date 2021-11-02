@@ -1,18 +1,20 @@
-import { FC, useState, useEffect } from 'react'
+import { FC, useState, useEffect, memo } from 'react'
 import { ArrowLeft, ArrowRight } from 'react-feather'
 import { checkExtension } from '../utils/helper'
 
 interface ImagePopupProps {
-  cur: number
-  active: boolean
-  onClose: () => void
+  active?: number
+  visible: boolean
   files: string[]
+  onClose: () => void
 }
 
-export const ImagePopup: FC<ImagePopupProps> = ({ files: initFiles, cur, active, onClose }) => {
+export const ImagePopup: FC<ImagePopupProps> = memo(({ 
+  files: initFiles, active = 0, visible, onClose
+}) => {
 
   const [files, ] = useState(initFiles)
-  const [curIndex, setCurIndex] = useState(cur)
+  const [curIndex, setCurIndex] = useState(active)
 
   // const keyHandler = (e) => {
   //   if (e.code === 'ArrowRight') {
@@ -26,13 +28,13 @@ export const ImagePopup: FC<ImagePopupProps> = ({ files: initFiles, cur, active,
   // }
 
   useEffect(() => { 
-    if (active) {
+    if (visible) {
       document.body.style.overflow = 'hidden'
-      setCurIndex(cur)
+      setCurIndex(curIndex)
     } else {
       document.body.style.overflow = 'auto'
     }
-  }, [active])
+  }, [visible])
 
   const nextHandler = () => {
     if (curIndex + 1 > files.length - 1) setCurIndex(0)
@@ -55,7 +57,7 @@ export const ImagePopup: FC<ImagePopupProps> = ({ files: initFiles, cur, active,
   }
 
   return <>
-    {active ?
+    {visible ?
       <div className="image-popup">
         <div onClick={onClose} className="image-popup__back"></div>
 
@@ -78,4 +80,4 @@ export const ImagePopup: FC<ImagePopupProps> = ({ files: initFiles, cur, active,
       </div> 
     : null}
   </>
-}
+})

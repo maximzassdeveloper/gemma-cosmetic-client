@@ -1,0 +1,8 @@
+export { FAQ } from './FAQ'
+export { Contact } from './Contact'
+export { Gallery } from './Gallery'
+export { SliderSection } from './SliderSection'
+export { ProductSection } from './ProductSection'
+export { PlanRewards } from './PlanRewards'
+export { NumbersSection } from './NumbersSection'
+export { CallbackSection } from './CallbackSection'
