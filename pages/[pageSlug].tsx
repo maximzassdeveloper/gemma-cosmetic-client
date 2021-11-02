@@ -15,7 +15,7 @@ const Page: NextPage<Props> =({ page }) => {
       description={page.metaDesc} 
       title={page.name}
       keywords={page.metaKeywords}
-      robots={page.metaRobots}
+      robots={page.metaRobots} 
     >
 
       <Container>
