@@ -17,6 +17,7 @@ const Page: NextPage<Props> =({ page }) => {
       keywords={page.metaKeywords}
       robots={page.metaRobots}
     >
+      
       <Container>
         <div className="page notfull">
           <h1>{page.name}</h1>
