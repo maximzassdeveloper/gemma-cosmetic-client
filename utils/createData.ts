@@ -7,7 +7,7 @@ export const createCartProduct = (product: IProduct, count: number): ICartProduc
   cartProduct.name = product.name
   cartProduct.slug = product.slug
   cartProduct.price = product.price
-  cartProduct.image = product.images[0]
+  cartProduct.image = product.images[0].url
   cartProduct.count = count
   cartProduct.totalPrice = count * product.price
 

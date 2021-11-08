@@ -1,8 +1,8 @@
 import { FC } from 'react'
 import Link from 'next/link'
-
 import { IProduct } from '../../types/product'
 import { Price, AddToCart } from '.'
+import { SERVER_URL } from '../../utils/config'
 
 interface ProductProps {
   product: IProduct
@@ -14,7 +14,7 @@ export const Product: FC<ProductProps> = ({ product }) => {
       
       <div className="product__image">
         <Link href={`/product/${product.slug}`}>
-          <img src={product.images[0]} loading='lazy' alt={product.name} />
+          <img src={SERVER_URL + '/' + product.images[0].url} loading='lazy' alt={product.name} />
         </Link>
       </div>
 

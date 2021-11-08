@@ -1,8 +1,10 @@
 import { FC, useState } from 'react'
 import { ArrowDown, ArrowUp } from 'react-feather'
+import { IFile } from '../../types/product'
+import { SERVER_URL } from '../../utils/config'
 
 interface Props {
-  images: string[]
+  images: IFile[]
   alt?: string
 }
 
@@ -34,8 +36,8 @@ export const SingleProductImages: FC<Props> = ({ images, alt }) => {
   return (
     <div className="single-product__images">
       {images.length === 1 
-        ? <ProductImage url={images[0]} alt={alt} />
-        : <ProductImage url={images[activeSlide]} alt={alt} />
+        ? <ProductImage url={SERVER_URL + '/' + images[0].url} alt={alt} />
+        : <ProductImage url={SERVER_URL + '/' + images[activeSlide].url} alt={alt} />
       }
       {images.length > 1 && <div className="single-product__arrows">
         <div onClick={prevSlideHandler} className="arrow rgih"><ArrowUp /></div>

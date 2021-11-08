@@ -36,7 +36,7 @@ export const SingleProduct: FC<SingleProductProps> = ({ product }) => {
           <h1>{product.name}</h1>
           <Price className="single-product__price" price={product.price} />
           <AddToCart className="single-product__add" product={product} />
-          <AttributeList attrs={product.attribute_values} />
+          <AttributeList attrs={product.attrs} />
           <CategoryList cats={product.categories} />
           {/* {product.shortDesc && <p className="single-product__short-desc">{product.shortDesc}</p>} */}
         </div>

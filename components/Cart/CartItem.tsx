@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useActions } from '../../hooks/useActions'
 import { ICartProduct } from '../../types/cart'
 import { ChangeCount, Price } from '../Product'
+import { SERVER_URL } from '../../utils/config'
 
 interface CartItemProps {
   product: ICartProduct
@@ -25,7 +26,7 @@ export const CartItem: FC<CartItemProps> = ({ product }) => {
     <div className="cart-item">
       <div onClick={() => setActiveCart(false)} className="cart-item__image">
         <Link href={`/product/${product.slug}`}>
-          <img src={product.image} alt={product.name} />
+          <img src={SERVER_URL + '/' + product.image} alt={product.name} />
         </Link>
       </div>
       <div className="cart-item__name">

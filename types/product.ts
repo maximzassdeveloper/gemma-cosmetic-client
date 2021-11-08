@@ -38,6 +38,12 @@ export interface IProductAttribute {
   }
 }
 
+export interface IFile {
+  id: number
+  url: string
+  type: string
+}
+
 export interface IProduct {
   id: number
   name: string
@@ -45,9 +51,9 @@ export interface IProduct {
   price: number
   shortDesc?: string
   desc?: any
-  images: string[]
+  images: IFile[]
   categories?: ICategory[]
-  attribute_values?: IProductAttribute[]
+  attrs?: IProductAttribute[]
   comments?: IComment[]
   tags?: string[]
   metaTitle?: string
