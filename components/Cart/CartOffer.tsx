@@ -32,7 +32,7 @@ export const CartOffer: FC<CartOfferProps> = ({ products }) => {
 
             <div className="item__image">
               <Link href={`/product/${product.slug}`}>
-                <img src={product.images[0].url} alt={product.name} />
+                <img src={product.images[0].url} alt={product.name} /> 
               </Link>
             </div>
 
