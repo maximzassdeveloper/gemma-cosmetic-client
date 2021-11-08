@@ -7,7 +7,7 @@ import { CartCheckout } from './CartCheckout'
 // import { CartOffer } from './CartOffer'
 import { useActions } from '../../hooks/useActions'
 import { useTypesSelector } from '../../hooks/useTypedSelector'
-// import { getRandomFromArray } from '../../utils/helper'
+// import { getRandomFromArray } from '../../utils/helper' 
 
 export const Cart: FC = memo(() => {
 
