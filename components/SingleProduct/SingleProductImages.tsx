@@ -36,8 +36,8 @@ export const SingleProductImages: FC<Props> = ({ images, alt }) => {
   return (
     <div className="single-product__images">
       {images.length === 1 
-        ? <ProductImage url={SERVER_URL + '/' + images[0].url} alt={alt} />
-        : <ProductImage url={SERVER_URL + '/' + images[activeSlide].url} alt={alt} />
+        ? <ProductImage url={SERVER_URL + '/' + images[0]?.url} alt={alt} />
+        : <ProductImage url={SERVER_URL + '/' + images[activeSlide]?.url} alt={alt} />
       }
       {images.length > 1 && <div className="single-product__arrows">
         <div onClick={prevSlideHandler} className="arrow rgih"><ArrowUp /></div>

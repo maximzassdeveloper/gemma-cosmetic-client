@@ -14,7 +14,7 @@ export const Product: FC<ProductProps> = ({ product }) => {
       
       <div className="product__image">
         <Link href={`/product/${product.slug}`}>
-          <img src={SERVER_URL + '/' + product.images[0].url} loading='lazy' alt={product.name} />
+          <img src={SERVER_URL + '/' + product.images[0]?.url} loading='lazy' alt={product.name} />
         </Link>
       </div>
 
