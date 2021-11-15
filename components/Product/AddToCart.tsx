@@ -10,7 +10,7 @@ import { useMediaQuery } from '../../hooks/useMediaQuery'
 
 interface AddToCartProps {
   className?: string
-  product: IProduct
+  product: IProduct 
 }
 
 export const AddToCart: FC<AddToCartProps> = ({ className, product }) => {
