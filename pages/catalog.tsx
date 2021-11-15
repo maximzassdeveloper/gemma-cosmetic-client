@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { GetServerSideProps, NextPage } from 'next'
 import { Container, Main } from '../components/hoc'
-import { ProductFilter, ProductList, ProductSearch, ProductSort } from '../components'
+import { ProductFilter, ProductList, ProductSearch } from '../components'
 import { IAttribute, ICategory, IProduct } from '../types/product'
 import { useRouter } from 'next/router'
 import { fetchData } from '../services/dataService'
@@ -51,10 +51,6 @@ const CatalogPage: NextPage<CatalogProps> = ({
                 products={products}
                 onChange={setProducts}
               />
-              {/* <ProductSort
-                products={products}
-                onChange={setProducts}
-              /> */}
             </div>
             <ProductList 
               products={products}

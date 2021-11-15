@@ -3,7 +3,6 @@ import { Container, Main } from '../components/hoc'
 import { fetchData } from '../services/dataService'
 import { IPage } from '../types/help'
 import { TagList } from '../components'
-import { editorRender } from '../utils/helper'
 
 interface Props {
   page: IPage
@@ -22,9 +21,9 @@ const Page: NextPage<Props> =({ page }) => {
         <div className="page notfull">
           <h1>{page.name}</h1>
 
-          {page.body && <div className="editor-styles">
+          {/* {page.body && <div className="editor-styles">
             {editorRender(page.body)}
-          </div>}
+          </div>} */}
           <TagList tags={page.tags} />
         </div>
       </Container>

@@ -7,9 +7,6 @@ import { Input, Button } from '../../../components/generetic'
 import { MetaForm } from '../../../components/admin'
 import { CreateTags } from '../../../components/admin/widgets'
 
-const Editor = dynamic(() => import('../../../components/generetic/Editor')
-  .then(m => m.Editor), { ssr: false })
-
 interface FormInputs {
   name: string
   slug: string
@@ -57,7 +54,6 @@ const CreatePagePage: NextPage = () => {
           placeholder='Слаг страницы'
         />
         <MetaForm register={register} />
-        <Editor onChange={d => setValue('body', d)} />
         <CreateTags
           onChange={t => setValue('tags', t)}
         />

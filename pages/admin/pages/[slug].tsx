@@ -9,9 +9,6 @@ import { IPage } from '../../../types/help'
 import { CreateTags } from '../../../components/admin/widgets'
 import { MetaForm } from '../../../components/admin'
 
-const Editor = dynamic(() => import('../../../components/generetic/Editor')
-  .then(m => m.Editor), { ssr: false })
-
 interface UpdatePageProps {
   page: IPage
 }
@@ -71,10 +68,6 @@ const UpdatePagePage: NextPage<UpdatePageProps> = ({ page }) => {
           placeholder='Слаг страницы'
         />
         <MetaForm register={register} />
-        <Editor 
-          data={JSON.parse(page.body) || {}} 
-          onChange={d => setValue('body', d)} 
-        />
         <CreateTags 
           onChange={t => setValue('tags', t)}
           tags={page.tags} 
