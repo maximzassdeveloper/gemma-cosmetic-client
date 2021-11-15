@@ -1,4 +1,5 @@
 import { FC, useState } from 'react'
+import parser from 'html-react-parser'
 import { IComment, IProduct } from '../../types/product'
 import { Price, AddToCart } from '../Product'
 import { CommentList } from '../Comment/CommentList'
@@ -7,7 +8,6 @@ import { SingleProductImages } from './SingleProductImages'
 import { AttributeList } from './AttributeList'
 import { CategoryList } from './CategoryList'
 import { TagList } from '../'
-import { editorRender } from '../../utils/helper'
 
 interface SingleProductProps {
   product: IProduct
@@ -45,7 +45,7 @@ export const SingleProduct: FC<SingleProductProps> = ({ product }) => {
 
       </div>
       {product.desc && <div className="single-product__desc editor-styles">
-        {editorRender(product.desc)}
+        {parser(product.desc)}
       </div>}
       <CommentList 
         productId={product.id} 

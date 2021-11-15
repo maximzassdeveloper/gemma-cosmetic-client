@@ -1,13 +1,11 @@
 import { FC, useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
 import { useTransition, animated, config } from '@react-spring/web'
 import { X } from 'react-feather'
 import Confetti from 'react-confetti'
 import { useTypesSelector } from '../hooks/useTypedSelector'
 import { useActions } from '../hooks/useActions'
 import classnames from '../utils/classnames'
-import { getCookie, setCookie } from '../utils/helper'
-import authAxios from '../services/axiosService'
+import { getCookie, setCookie } from '../utils/cookieFunctions'
 import { CallbackForm } from '.'
 
 export const CallToActionPopup: FC = () => {
