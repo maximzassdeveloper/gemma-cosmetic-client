@@ -72,7 +72,7 @@ export const CallbackForm: FC<CallbackFormProps> = ({ className, before, onSubmi
         <div className="callback-form__success">
           Заявка успешко отправлена. Мы скоро вам напишем!
         </div>
-      </CSSTransition>
+      </CSSTransition> 
     </form>
   )
 }
