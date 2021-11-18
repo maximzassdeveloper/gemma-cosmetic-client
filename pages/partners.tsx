@@ -2,7 +2,7 @@ import { NextPage, GetServerSideProps } from 'next'
 import { Container, Main } from '../components/hoc'
 import { fetchData } from '../services/dataService'
 import { IPage } from '../types/help'
-import { FAQ, Contact, PlanRewards, NumbersSection, CallbackSection } from '../components/sections'
+import { FAQ, Contact, PlanRewards, NumbersSection, CallbackSection, AdvantageImages } from '../components/sections'
 import { TagList } from '../components'
 import { Button } from '../components/generetic'
 
@@ -49,6 +49,8 @@ const Page: NextPage<Props> = ({ page }) => {
         {number: 45, suffix: '%', text: 'С такой скидкой вы закупаете нашу продукцию'},
         {number: 18936, suffix: 'людей', text: 'Уже являются нашими партнерами'}
       ]} />
+
+      <AdvantageImages />
 
       <CallbackSection id="becomePartner" />
 

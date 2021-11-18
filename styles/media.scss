@@ -94,6 +94,12 @@
       }
     }
   }
+  .advantage-images {
+    flex-wrap: wrap;
+    &__item {
+      width: 50%;
+    }
+  }
   .scroll-circle {
     right: 2%;
   }
@@ -623,6 +629,13 @@
       }
     }
   }
+  .advantage-images {
+    justify-content: center;
+    &__item {
+      width: 70%;
+      margin-bottom: 10px;
+    }
+  }
 }
 
 @media screen and (max-width: 400px) {
@@ -631,6 +644,12 @@
       &__image {
         height: 200px;
       }
+    }
+  }
+  .advantage-images {
+    &__item {
+      width: 100%;
+      margin-bottom: 0;
     }
   }
   .cart-item {

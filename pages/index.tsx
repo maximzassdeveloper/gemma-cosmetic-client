@@ -4,7 +4,7 @@ import { IProduct } from '../types/product'
 import { fetchData } from '../services/dataService'
 import { CallbackForm } from '../components'
 import ScrollCircle from '../public/home/scrollCircle.svg'
-import { Contact, FAQ, Gallery, ProductSection } from '../components/sections'
+import { AdvantageImages, Contact, FAQ, Gallery, ProductSection } from '../components/sections'
 import { getRandomFromArray } from '../utils/helper'
 
 interface HomeProps {
@@ -73,6 +73,8 @@ const Home: NextPage<HomeProps> = ({ products }) => {
         products={getRandomFromArray(products, 10)} 
         title={<>Наша <br/>продукция</>} 
       />
+
+      <AdvantageImages />
 
       <Gallery title={<>Награды и<br/> сертификаты</>} />
 

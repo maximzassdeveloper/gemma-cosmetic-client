@@ -1,6 +1,0 @@
-export { AdminSidebar } from './AdminSidebar'
-export { AdminHeader } from './AdminHeader'
-export { AdminFooter } from './AdminFooter'
-export { CreateSidebar } from './CreateSidebar'
-export { AdminList } from './AdminList'
-export { MetaForm } from './MetaForm'
