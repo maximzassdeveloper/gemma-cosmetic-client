@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { IComment } from '../../types/product'
 import { Rating } from '../Product'
 import { ImagePopup } from '../'
+import { Image } from '../generetic'
 
 interface CommentItemProps {
   comment: IComment
@@ -10,22 +11,22 @@ interface CommentItemProps {
 
 export const CommentItem: FC<CommentItemProps> = ({ comment }) => {
 
-  const [active, setActive] = useState(false)
-  const [cur, setCur] = useState(0)
+  const [visible, setVisible] = useState(false)
+  const [active, setActive] = useState(0)
 
   const openHandler = (index: number) => {
-    setCur(index)
-    setActive(true)
+    setVisible(true)
+    setActive(index)
   }
 
   return (
     <div className="comment">
 
       <ImagePopup 
-        files={[...comment.images, ...comment.videos]} 
-        visible={active} 
-        active={cur}
-        onClose={() => setActive(false)}
+        files={comment.files} 
+        visible={visible} 
+        active={active}
+        onClose={() => setVisible(false)}
       />
 
       <div className="comment__header">
@@ -41,14 +42,13 @@ export const CommentItem: FC<CommentItemProps> = ({ comment }) => {
       <p className="comment__message">{comment.message}</p>
 
       {<div className="comment__images">
-        {comment.images.map((i, index) =>
-          <div onClick={() => openHandler(index)} key={index+i} className="comment__image">
-            <img src={i} alt='' />
-          </div>
-        )}
-        {comment.videos.map((i, index) =>
-          <div onClick={() => openHandler(comment.images.length+index)} key={index+i} className="comment__video">
-            <video key={index+i} src={i} controlsList="nodownload"></video>
+        {comment.files?.map((file, index) => 
+          <div 
+            key={file.id}
+            onClick={() => openHandler(index)} 
+            className={file.type === 'image' ? 'comment__image' : 'comment__video'}
+          >
+            <Image file={file} />
           </div>
         )}
       </div>}

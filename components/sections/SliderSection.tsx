@@ -1,4 +1,4 @@
-import { FC, useRef, ReactNode, useState, useEffect } from 'react'
+import { FC, useRef, ReactNode } from 'react'
 import { Splide } from '@splidejs/react-splide'
 import { Container } from '../hoc'
 
@@ -6,25 +6,21 @@ interface SliderSectionProps {
   title?: ReactNode
   className?: string
   count: number
+  breakpoints?: Record<string | number, any>
 }
 
 export const SliderSection: FC<SliderSectionProps> = ({ 
-  children, title, className, count
+  children, title, className, count, breakpoints
 }) => {
 
-  const [inCount, setInCount] = useState(count)
   const bar = useRef<HTMLDivElement>(null)
   const slider = useRef<any>(null)
-
-  useEffect(() => {
-    setInCount(count)
-  }, [count])
 
   const moveHandler = (splide: any, index: number = 0) => {
     if (!bar.current) return
     
     const { length } = splide.Components.Elements.slides
-    bar.current.style.width = 100 / length * inCount + '%'
+    bar.current.style.width = 100 / length * splide._options.perPage + '%'
     bar.current.style.left = 100 / length * index + '%'
   }
 
@@ -45,9 +41,10 @@ export const SliderSection: FC<SliderSectionProps> = ({
           options={{
             rewind: true,
             gap: '20px',
+            perPage: count,
             perMove: 1,
-            perPage: inCount,
             pagination: false,
+            breakpoints: breakpoints,
             classes: {
               arrows: 'slider__arrows'
             }

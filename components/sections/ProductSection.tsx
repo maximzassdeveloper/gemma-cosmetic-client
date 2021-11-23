@@ -1,9 +1,8 @@
-import { FC, ReactNode, useEffect, useState } from 'react'
+import { FC, ReactNode } from 'react'
 import { SplideSlide } from '@splidejs/react-splide'
 import { SliderSection } from '.'
 import { Product } from '..'
 import { IProduct } from '../../types/product'
-import { useMediaQuery } from '../../hooks/useMediaQuery'
 
 interface ProductSectionProps {
   products: IProduct[]
@@ -11,25 +10,20 @@ interface ProductSectionProps {
 }
 
 export const ProductSection: FC<ProductSectionProps> = ({ products, title }) => {
-
-  
-  const [count, setCount] = useState(5)
-  
-  const max1250 = useMediaQuery('(max-width: 1250px)')
-  const max950 = useMediaQuery('(max-width: 950px)')
-  const max700 = useMediaQuery('(max-width: 700px)')
-  
-  useEffect(() => {
-    if (max700) return setCount(2)
-    else if (max950) return setCount(3)
-    else if (max1250) return setCount(4)
-    else setCount(5)
-  }, [max1250, max950, max700])
   
   if (!products || !products.length) return null
   
   return (
-    <SliderSection className="product-section products" title={title} count={count}>
+    <SliderSection 
+      className="product-section products" 
+      title={title} 
+      count={5}
+      breakpoints={{
+        1250: { perPage: 4 },
+        950: { perPage: 3 },
+        700: { perPage: 2 }
+      }}
+    >
       {products.map(product => 
         <SplideSlide key={product.id}>
           <Product product={product} />

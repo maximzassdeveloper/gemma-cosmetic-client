@@ -52,7 +52,7 @@ export const Header: FC = () => {
           className="header__close"><X /></div>}
 
         <div className="header__logo">
-          <Link href='/'>Gemma</Link>
+          <Link href='/'>Gemma Korea</Link>
         </div>
 
         <nav className="header__menu">

@@ -135,6 +135,7 @@ section {
 }
 
 .fade {
+  transition: .2s;
   &-enter {
     opacity: 0;
     transform: translateX(-5px);

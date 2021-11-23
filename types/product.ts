@@ -11,9 +11,8 @@ export interface IComment {
   rating: number
   userId: number
   productId: number
-  images?: string[]
-  videos?: string[]
   product?: IProduct
+  files?: IFile[]
 }
 
 export interface IAttribute {
