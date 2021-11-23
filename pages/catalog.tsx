@@ -42,7 +42,7 @@ const CatalogPage: NextPage<CatalogProps> = ({
           <ProductFilter 
             active={activeFilters}
             onChange={changeFilter}  
-            attributes={attributes} 
+            attributes={attributes}
             categories={categories}
           />
           <div className="catalog__products">
